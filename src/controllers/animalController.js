@@ -3,14 +3,29 @@ import HttpError from "../middlewares/httperror.js";
 
 export const animalController = {
   //! Recuperer tous les animaux
-  getAllAnimals: async (_, res) => {
-    const animals = await Animal.findAll({where: {id_family : null}});
+  getAllAnimals: async (req, res) => {
+    
+    if (req.user) {
+      const association = await Association.findOne({where: {id_user : req.user.id}});
+      const myAnimals = await association.getAnimals();
+      return res.json(myAnimals);
+    }
+    
+    const animals = await Animal.findAll({where: {id_family: null}});
     res.json(animals);
   },
 
   //! Recuperer un animal
   getAnimalById: async (req, res) => {
-    const animalId = req.params.id;
+    const animalId = req.params.id || req.params.animalId;
+
+    if (req.user) {
+      const association = await Association.findOne({where: {id_user : req.user.id}});
+      const myAnimal = await association.getAnimals({where: {id: animalId}});
+      console.log(myAnimal);
+      return res.json(myAnimal);
+    }
+
     const animal = await Animal.findByPk(animalId, {
       where: {id_family : null},
       include: [
