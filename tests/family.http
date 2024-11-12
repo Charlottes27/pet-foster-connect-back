@@ -6,7 +6,7 @@ Accept: application/json
 
 ###* AVEC TOKEN
 GET http://localhost:3000/api/family
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhbGljZS5iZXJuYXJkQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTM0MzA5OCwiZXhwIjoxNzMxMzQ2Njk4fQ.xmxDXR6SJ3xaOJSNOteEaOk6xtL0gFzVv7czCVxBTas
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0Mzk3NTEsImV4cCI6MTczMTQ0MzM1MX0.r3nR926PDl3lBiseRg4BO7SKC8MnPHPURCvVTWzl2gk
 Accept: application/json
 
 #----------------Récupérer une famille par son ID (admin asso)----------------
@@ -18,23 +18,22 @@ Accept: application/json
 
 ### AVEC TOKEN
 GET http://localhost:3000/api/family/10
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzEzMzg4MjYsImV4cCI6MTczMTM0MjQyNn0.imn-Ki32lt2Slx8dqMbr-E_pEtmwuhT85YD61OU59Nc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoibWF4aW1lLmNvbGxldEBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0MTc4MjAsImV4cCI6MTczMTQyMTQyMH0.ND71Ca1IysFR2ZBm3Ck2BZmdbsTGWaQqPqitOOgJ6OE
 Accept: application/json
 
 ### modification d'une family
-PATCH http://localhost:3000/api/family/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqZWFuLmR1cG9udEBlbWFpbC5jb20iLCJyb2xlIjoiZmFtaWx5IiwiaWF0IjoxNzMxMzM4NjgzLCJleHAiOjE3MzEzNDIyODN9.2b5rzZeJwTkePzXopfkcNssBcHDEgYfMrnF-sG5Am0w
+PATCH http://localhost:3000/api/family/12
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoiY2xhcmEubWV5ZXJAZW1haWwuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTQzOTkzNSwiZXhwIjoxNzMxNDQzNTM1fQ.cuNOZKouNGvBh3tJBzfvnSkqYShSzqNf_xXv4F-aHOE
 
 {
-    "address": "rue de Gisors POOOues",
+    "address": "rue de Gisors Nord",
     "user": {
-        "firstname": "Charles",
-        "password": "CoucouToi383!"
+        "lastname": "Neyer"
     }
 }
 
 ### Suppression d'une family
 DELETE http://localhost:3000/api/family/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzEzMzg4MjYsImV4cCI6MTczMTM0MjQyNn0.imn-Ki32lt2Slx8dqMbr-E_pEtmwuhT85YD61OU59Nc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqZWFuLmR1cG9udEBlbWFpbC5jb20iLCJyb2xlIjoiZmFtaWx5IiwiaWF0IjoxNzMxNDE3ODM3LCJleHAiOjE3MzE0MjE0Mzd9.fzWpPYq5yu9ydE7iXlx8ATG81R1HRsXekOzFJ57x0w4
 Content-Type: application/json

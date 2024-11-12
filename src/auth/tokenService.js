@@ -5,7 +5,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 //! Fonction pour générer un token JWT
 export const generateToken = (user) => {
-  console.log(user.id_family);
   // La fonction 'jwt.sign()' crée un nouveau token avec les informations de l'utilisateur.
 
   // Le premier argument de 'jwt.sign()' est le "payload", qui contient les données que nous voulons inclure dans le token

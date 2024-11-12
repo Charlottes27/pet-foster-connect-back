@@ -45,11 +45,13 @@ export const familyController = {
     }
 
     //! Vérification de la validité du mot de passe
-    if (!validatePassword(user.password)) {
-      return res.status(400).json({
-        message:
-          "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.",
-      });
+    if (updateFamily.user&& updateFamily.user.password ) {
+      if (!validatePassword(updateFamily.user.password)) {
+        return res.status(400).json({
+          message:
+            "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.",
+        });
+      }
     }
 
     const transaction = await sequelize.transaction();
@@ -99,10 +101,14 @@ export const familyController = {
 
   deleteFamily: async (req, res) => {
     const familyId = req.params.id;
-    const selectFamily = await Family.findByPk(familyId);
+    const selectFamily = await Family.findByPk(familyId, {include: "animalsFamily"});
 
     if (!selectFamily) {
       throw new HttpError(404, "Family not found");
+    }
+
+    if (selectFamily.animalsFamily.length > 0) {
+      throw new HttpError(409, "Deletion impossible, you are still hosting animals");
     }
 
     await selectFamily.destroy();

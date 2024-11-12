@@ -37,3 +37,22 @@ export function verifyAssociation () {
         next();
     };
 };
+
+export function verifyUser() {
+    return async function (req, res, next) {
+        const userId = req.params.id || req.params.userId;
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({
+                error: "Profil utilisateur non trouvé"
+            });
+        }
+        
+        if (user.id !== req.user.id) {
+            return res.status(403).json({
+                error: "Accès interdit: Vous n'etes pas habilité"
+            });
+        }
+        next();
+    };
+};

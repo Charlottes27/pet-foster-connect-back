@@ -12,12 +12,16 @@ export const animalController = {
       return res.json(myAnimals);
     }
     
-    const { species, age, size, gender } = req.query;
+    const { species, breed, age, size, gender } = req.query;
     const conditions = { id_family: null };
 
     // Filtre les animaux par éspèce spécifiée, Op.iLike  =  insensible à la casse dans Sequelize.
     if (species) {
       conditions.species = { [Op.iLike]: species };
+    }
+
+    if (breed) {
+      conditions.breed = { [Op.iLike]: breed };
     }
 
     // Filtre les animaux dont l'âge est inférieur à la valeur spécifiée, Op.lt = "inférieur à" dans Sequelize

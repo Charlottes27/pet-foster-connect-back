@@ -54,15 +54,12 @@ export const userController = {
     }
 
     //! Vérification de la validité du mot de passe
-    if (!validatePassword(user.password)) {
+    if (updateUser.password && !validatePassword(updateUser.password)) {
       return res.status(400).json({
         message:
           "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.",
       });
     }
-
-    // Hachage du mot de passe
-    const hashedPassword = Scrypt.hash(updateUser.password);
 
     const transaction = await sequelize.transaction();
 
@@ -92,17 +89,21 @@ export const userController = {
       const userData = {
         ...user.get(),
         ...updateUser,
-        id: user.id,
-        password: hashedPassword
+        id: user.id
       };
 
+      if (updateUser.password) {
+        userData.password = Scrypt.hash(updateUser.password);
+      }
+
       await user.update(userData);
-      
-      await transaction.commit();
       
       const userObject = user.get({plain: true});
       delete userObject.password;
       
+      await transaction.commit();
+      
+  
       res.status(200).json(userObject);
     }
     catch(error){

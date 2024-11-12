@@ -3,8 +3,8 @@ POST http://localhost:3000/api/signin
 Content-Type: application/json
 
 {
-    "email": "pierre.dubois@email.com",
-    "password": "password" 
+    "email": "philippe.bourgeois@email.com",
+    "password": " password " 
 }
 
 ### Test de connexion avec des identifiants invalides (mot de passe incorrect)
@@ -51,22 +51,3 @@ Content-Type: application/json
     "email": "invalid-email",
     "password": "jess"
 }
-
-### Test de connexion avec des caractères spéciaux dans le mot de passe
-POST http://localhost:3000/api/signin
-Content-Type: application/json
-
-{
-    "email": "asso@example.com",
-    "password": "Asso@123"
-}
-
-###! Test de limite de longueur d'email
-POST http://localhost:3000/api/signin
-Content-Type: application/json
-
-{
-    "email": "a".repeat(255) + "@example.com",
-    "password": "jess"
-}
-

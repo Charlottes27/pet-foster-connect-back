@@ -54,7 +54,7 @@ export const signinController = {
     res.status(200).json({
       message: "Connexion réussie",
       token,
-      user: { email: user.email, role: user.role },
+      user: { email: user.email, role: user.role, id: user.id },
     });
   },
 
