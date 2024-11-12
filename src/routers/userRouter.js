@@ -20,9 +20,9 @@ router.get("/:id", withTryCatch(userController.getOneUser));
 router.post ("/", validate (createSchema, "body"), withTryCatch(createUserController.createUser)); // Route pour ajouter un nouvel utilisateur
 
 //* Routes accessibles uniquement aux associations et aux familles d'accueil
-router.patch("/:id", /* verifyToken, isRoleAuthorizedMiddleware(["association", "family", "admin"]), */validate(patchSchema, "body"),withTryCatch(userController.patchUser)); // Route pour modifier un utilisateur par son ID
+router.patch("/:id", verifyToken, isRoleAuthorizedMiddleware(["association", "family", "admin"]),validate(patchSchema, "body"),withTryCatch(userController.patchUser)); // Route pour modifier un utilisateur par son ID
 
 //* Routes accessibles uniquement aux admin, aux associations et aux familles d’accueil
-router.delete("/:id", /* verifyToken, isRoleAuthorizedMiddleware(["admin", "association", "family"]), */withTryCatch(userController.deleteUser)); // Route pour supprimer un utilisateur par son ID
+router.delete("/:id", verifyToken, isRoleAuthorizedMiddleware(["admin", "association", "family"]),withTryCatch(userController.deleteUser)); // Route pour supprimer un utilisateur par son ID
 
 

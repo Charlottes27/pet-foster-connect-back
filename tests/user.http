@@ -18,7 +18,7 @@ Content-Type: application/json
   "firstname": "test",
   "lastname": "FAmilyTest",
   "email": "testFamqsilyd28@example.com",
-  "password": "Family",
+  "password": "Fa@78mily",
   "family":{
     "address": "123 Main St",
     "postal_code": "12345",
@@ -64,7 +64,7 @@ Accept: application/json
 
 
 ###* AVEC TOKEN
-DELETE http://localhost:3000/api/user/30
+DELETE http://localhost:3000/api/user/27
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoiYXNzbzkxMTUyNTVAc3hhc21wbGUuY29tIiwicm9sZSI6ImFzc29jaWF0aW9uIiwiaWF0IjoxNzMwOTgzMjA3LCJleHAiOjE3MzA5ODY4MDd9.2mSVcFkl85pRXg_GhaubUtQ5KDsnY0k3irHOKFOry_o
 Accept: application/json
 
