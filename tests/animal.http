@@ -1,3 +1,15 @@
+
+### Filtre par espèce
+GET http://localhost:3000/api/animal?species=chien
+
+### Filtre par âge 
+GET http://localhost:3000/api/animal?age=2
+
+### Filitre par âge + espèce
+GET http://localhost:3000/api/animal?species=chien&age=2
+
+
+
 ### Requête GET pour récupérer tous les animaux
 GET http://localhost:3000/api/animal
 Accept: application/json
