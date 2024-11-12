@@ -12,10 +12,6 @@ export const animalController = {
       return res.json(myAnimals);
     }
     
-    const animals = await Animal.findAll({where: {id_family: null}});
-    res.json(animals);
-  //! Récupérer tous les animaux avec des filtres optionnels
-  getAllAnimals: async (req, res) => {
     const { species, age, size, gender } = req.query;
     const conditions = { id_family: null };
 
