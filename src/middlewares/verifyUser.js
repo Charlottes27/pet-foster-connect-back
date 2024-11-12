@@ -21,7 +21,7 @@ export function verifyFamily () {
 
 export function verifyAssociation () {
     return async function (req, res, next) {
-        const associationId = req.params.id;
+        const associationId = req.params.id || req.params.associationId;
         const association = await Association.findByPk(associationId);
         if (!association) {
             return res.status(404).json({

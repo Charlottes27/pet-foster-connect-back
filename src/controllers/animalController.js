@@ -3,6 +3,17 @@ import HttpError from "../middlewares/httperror.js";
 import { Op } from "sequelize";
 
 export const animalController = {
+  //! Recuperer tous les animaux
+  getAllAnimals: async (req, res) => {
+    
+    if (req.user) {
+      const association = await Association.findOne({where: {id_user : req.user.id}});
+      const myAnimals = await association.getAnimals();
+      return res.json(myAnimals);
+    }
+    
+    const animals = await Animal.findAll({where: {id_family: null}});
+    res.json(animals);
   //! Récupérer tous les animaux avec des filtres optionnels
   getAllAnimals: async (req, res) => {
     const { species, age, size, gender } = req.query;
@@ -43,7 +54,15 @@ export const animalController = {
 
   //! Récuperer un animal
   getAnimalById: async (req, res) => {
-    const animalId = req.params.id;
+    const animalId = req.params.id || req.params.animalId;
+
+    if (req.user) {
+      const association = await Association.findOne({where: {id_user : req.user.id}});
+      const myAnimal = await association.getAnimals({where: {id: animalId}});
+      console.log(myAnimal);
+      return res.json(myAnimal);
+    }
+
     const animal = await Animal.findByPk(animalId, {
       where: { id_family: null },
       include: [
