@@ -78,3 +78,31 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsI
 GET http://localhost:3000/api/association/7/animal/71
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoibWF4aW1lLmNvbGxldEBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0MTc4MjAsImV4cCI6MTczMTQyMTQyMH0.ND71Ca1IysFR2ZBm3Ck2BZmdbsTGWaQqPqitOOgJ6OE
+
+###
+GET http://localhost:3000/api/association/2/ask
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0OTE4MTksImV4cCI6MTczMTQ5NTQxOX0.KvOV6d4Y6HMnSUHYUKhmVFEs-JySCndY0uLx_GaOZAE
+
+###
+GET http://localhost:3000/api/association/2/ask/3
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0OTE4MTksImV4cCI6MTczMTQ5NTQxOX0.KvOV6d4Y6HMnSUHYUKhmVFEs-JySCndY0uLx_GaOZAE
+
+###* AVEC TOKEN
+PATCH http://localhost:3000/api/association/2/ask/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0OTE4MTksImV4cCI6MTczMTQ5NTQxOX0.KvOV6d4Y6HMnSUHYUKhmVFEs-JySCndY0uLx_GaOZAE
+Content-Type: application/json
+
+{
+  "status": "En cours"
+}
+
+### Spprimer une demande
+PATCH http://localhost:3000/api/association/2/ask/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0OTE4MTksImV4cCI6MTczMTQ5NTQxOX0.KvOV6d4Y6HMnSUHYUKhmVFEs-JySCndY0uLx_GaOZAE
+
+{
+  "status": "rejeté"
+}

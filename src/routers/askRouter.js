@@ -10,8 +10,9 @@ import { verifyAssociation } from "../middlewares/verifyUser.js";
 export const router = Router();
 
 //* Routes accessibles uniquement aux associations
-router.get("/", isRoleAuthorizedMiddleware(["association"]), verifyAssociation() ,withTryCatch(askController.getAllAsks)); // Route pour lister toutes les demandes
+router.get("/", isRoleAuthorizedMiddleware(["association"]),withTryCatch(askController.getAllAsks)); // Route pour lister toutes les demandes
 router.get("/:id", isRoleAuthorizedMiddleware(["association"]), verifyAssociation(), withTryCatch(askController.getAskById)); // Route pour obtenir le détail d'une demande
+
 router.patch("/:id", isRoleAuthorizedMiddleware(["association"]),verifyAssociation(), withTryCatch(askController.patchAsk)); // Route pour modifier une demande
 
 //* Routes accessibles uniquement aux familles d'accueil
