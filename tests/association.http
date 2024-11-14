@@ -29,16 +29,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiO
 }
 
 ### Requête patch pour modifier une asso et son user
-PATCH http://localhost:3000/api/association/2
+PATCH http://localhost:3000/api/association/3
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0Mzk4ODcsImV4cCI6MTczMTQ0MzQ4N30.w2SmTTkcvMJ41Nfa0YtlHpWMExd6Noju4D57p-T1t_Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhbGljZS5iZXJuYXJkQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTUwOTY0MiwiZXhwIjoxNzMxNTEzMjQyfQ.9wt6EoV6GMzOd7_bkR5mJHhkn1ffM-Bg6zU8MOaWGKI
 
 {
     "representative": "La fete des animaux",
     "address": "rue des boules de poils",
     "user": {
         "firstname": "Chapi",
-        "password": "J'aimelesanimaux2020"
+        "currentPassword": "password",
+        "newPassword": "Password1!!",
+        "confirmPassword": "Password1!!"
     }
 }
 
@@ -106,3 +108,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiO
 {
   "status": "rejeté"
 }
+
+###
+
+DELETE http://localhost:3000/api/association/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE1NzYzMjIsImV4cCI6MTczMTU3OTkyMn0.D3cwjrnwAtlDM1BZHtlKapxr-jxsgdb8RCaXfFMlwjw

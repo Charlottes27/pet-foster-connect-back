@@ -20,9 +20,10 @@ export const userController = {
   getOneUser: async (req, res) => {
     const userId = req.params.id;
     const user = await User.findByPk(userId, {
+      attributes: {exclude: ["password"]},
       include: [
-        {association: "association", attributes: {exclude: ["password"]}},
-        {association: "family", attributes: {exclude: ["password"]}}
+        {association: "association",},
+        {association: "family"}
       ]
     });
 

@@ -17,20 +17,18 @@ Accept: application/json
 
 
 ### AVEC TOKEN
-GET http://localhost:3000/api/family/10
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoibWF4aW1lLmNvbGxldEBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0MTc4MjAsImV4cCI6MTczMTQyMTQyMH0.ND71Ca1IysFR2ZBm3Ck2BZmdbsTGWaQqPqitOOgJ6OE
+GET http://localhost:3000/api/family/24
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzYsImVtYWlsIjoidGVzdEZhbXFzaWx5ZDM2QGV4YW1wbGUuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTYwMDM3MiwiZXhwIjoxNzMxNjAzOTcyfQ.8I5VNAewBdlEh_d9AXucTrNO98aAGgvbd64oCz1IiOA
 Accept: application/json
 
 ### modification d'une family
 PATCH http://localhost:3000/api/family/12
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoiY2xhcmEubWV5ZXJAZW1haWwuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTQzOTkzNSwiZXhwIjoxNzMxNDQzNTM1fQ.cuNOZKouNGvBh3tJBzfvnSkqYShSzqNf_xXv4F-aHOE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoiY2xhcmEubWV5ZXJAZW1haWwuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTUwODM4MCwiZXhwIjoxNzMxNTExOTgwfQ.cU_KpPRNwaUAUbaWfjZBo3-dzuMb6iL25Suw3apTqQE
 
 {
-    "address": "rue de Gisors Nord",
-    "user": {
-        "lastname": "Neyer"
-    }
+    "address": "rue de Froid froid"
+  
 }
 
 ### Suppression d'une family

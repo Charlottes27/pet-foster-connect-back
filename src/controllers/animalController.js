@@ -61,7 +61,6 @@ export const animalController = {
     if (req.user) {
       const association = await Association.findOne({where: {id_user : req.user.id}});
       const myAnimal = await association.getAnimals({where: {id: animalId}});
-      console.log(myAnimal);
       return res.json(myAnimal);
     }
 

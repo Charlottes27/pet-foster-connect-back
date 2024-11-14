@@ -39,7 +39,7 @@ Content-Type: application/json
 ###* AVEC TOKEN
 POST http://localhost:3000/api/animal
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJwaWVycmUuZHVib2lzQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTQxNzc5MSwiZXhwIjoxNzMxNDIxMzkxfQ.6LkXIAhHBzvZ-wdmEFnUVSftLvIaVoUQQkmCq3fd6P0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJwaWVycmUuZHVib2lzQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTU3NzY4OSwiZXhwIjoxNzMxNTgxMjg5fQ.dL0m4isDAJRS0bvNQWpXe0bSsLQPrwCyKqlEiW4VFeY
 
 { 
   "name": "Janine",

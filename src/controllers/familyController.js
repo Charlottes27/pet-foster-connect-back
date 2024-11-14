@@ -44,16 +44,6 @@ export const familyController = {
       return next(new HttpError(404, "Foster family not found")); 
     }
 
-    //! Vérification de la validité du mot de passe
-    if (updateFamily.user&& updateFamily.user.password ) {
-      if (!validatePassword(updateFamily.user.password)) {
-        return res.status(400).json({
-          message:
-            "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.",
-        });
-      }
-    }
-
     const transaction = await sequelize.transaction();
     
     try{
@@ -66,9 +56,31 @@ export const familyController = {
           id: user.id,
         };
 
-        // Hachage du mot de passe
-        if (updateFamily.user.password) {
-          userData.password = Scrypt.hash(updateFamily.user.password);
+        // Gestion du changement de mot de passe
+        if (updateFamily.user.currentPassword && updateFamily.user.newPassword && updateFamily.user.confirmPassword) {
+          // Vérification du mot de passe actuel
+          const isCurrentPasswordValid = await Scrypt.compare(updateFamily.user.currentPassword, user.password);
+          if (!isCurrentPasswordValid) {
+            await transaction.rollback();
+            return res.status(400).json({ message: "Le mot de passe actuel est incorrect." });
+          }
+
+          // Vérification que le nouveau mot de passe et sa confirmation correspondent
+          if (updateFamily.user.newPassword !== updateFamily.user.confirmPassword) {
+            await transaction.rollback();
+            return res.status(400).json({ message: "Le nouveau mot de passe et sa confirmation ne correspondent pas." });
+          }
+
+          // Validation du nouveau mot de passe
+          if (!validatePassword(updateFamily.user.newPassword)) {
+            await transaction.rollback();
+            return res.status(400).json({
+              message: "Le nouveau mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.",
+            });
+          }
+          
+          // Hachage du mot de passe
+          userData.password = Scrypt.hash(updateFamily.user.newPassword);
         }
 
         // Mise à jour du User en BDD
@@ -111,7 +123,10 @@ export const familyController = {
       throw new HttpError(409, "Deletion impossible, you are still hosting animals");
     }
 
+    const user = await selectFamily.getUser();
+
     await selectFamily.destroy();
+    await user.destroy();
     res.status(204).end();
   },
 };

@@ -3,6 +3,7 @@ import {Association, Family, User} from "../models/index.js";
 export function verifyFamily () {
     return async function (req, res, next) {
         const familyId = req.params.id;
+
         const family = await Family.findByPk(familyId);
         if (!family) {
             return res.status(404).json({
