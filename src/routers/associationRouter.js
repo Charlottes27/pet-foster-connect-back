@@ -1,13 +1,12 @@
 //! Router secondaire pour les routes liées aux associations (prefixe de route : /api/association)
 
 import { Router } from "express";
-import withTryCatch from "../controllers/withTryCatchController.js"; // Importation du sélectionrateur de gestion d'erreurs avec try/catch pour middlewares asynchrones
-import { associationController } from "../controllers/associationController.js";  // Importation du Controller associationController
+import withTryCatch from "../controllers/withTryCatchController.js"; 
 import { animalController } from "../controllers/animalController.js";
 import { verifyToken } from "../auth/verifyToken.js";
 import { isRoleAuthorizedMiddleware } from "../middlewares/rightsMiddleware.js";
-import { validate } from "../validation/validate.js"; // Importation de la fonction de validation
-import { patchSchema } from "../validation/patchAssociation.js"; // Importation du schéma de modification d'utilisateur JOI
+import { validate } from "../validation/validate.js"; 
+import { patchSchema } from "../validation/patchAssociation.js"; 
 import { verifyAssociation } from "../middlewares/verifyUser.js";
 
 
@@ -15,10 +14,7 @@ export const router = Router();
 
 //* Routes publiques
 router.get("/", withTryCatch(associationController.getAllAssociations)); 
-router.get(
-    "/:id",
-    withTryCatch(associationController.getAssociationById
-    )); 
+router.get("/:id",withTryCatch(associationController.getAssociationById )); 
 
 router.get(
     "/:id/animal",

@@ -7,3 +7,10 @@ Content-Type: application/json
 }
 
 
+### Mettre à jour la photo de profil d'une association
+PATCH http://localhost:3000/api/association/2
+Content-Type: application/json
+
+{
+  "imageUrl": "https://www.ensemblepourlesanimaux.org/wp-content/uploads/2017/06/logo-wwf.jpg"
+}

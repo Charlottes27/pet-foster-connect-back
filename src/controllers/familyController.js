@@ -79,7 +79,7 @@ export const familyController = {
         await user.update(userData);
       }
 
-      //* Si une image est fournie dans le corps de la requête
+      //! Gestion de l'image de profil
       if (updateFamily.imageUrl) {
         if (!isURL(updateFamily.imageUrl)) {
           return res.status(400).json({ error: "URL d'image invalide" });
