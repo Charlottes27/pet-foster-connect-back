@@ -172,10 +172,10 @@ export const animalController = {
       throw new HttpError(403, "Accès interdit : Vous n'êtes pas habilité");
     }
 
-    // Gestion des images pour mise à jour
+    //! Gestion des images pour mise à jour
     const imageUrls = {};
 
-    // Upload de la photo de profil si fournie
+    //* Upload de la photo de profil si fournie
     if (req.body.profile_photo && isURL(req.body.profile_photo)) {
       const uploadResultProfilePhoto = await cloudinary.v2.uploader.upload(
         req.body.profile_photo,
@@ -186,7 +186,7 @@ export const animalController = {
       imageUrls.profile_photo = uploadResultProfilePhoto.secure_url;
     }
 
-    // Upload des autres photos si fournies
+    //* Upload des autres photos si fournies
     for (let i = 1; i <= 3; i++) {
       const photoKey = `photo${i}`;
       if (req.body[photoKey] && isURL(req.body[photoKey])) {
@@ -200,7 +200,7 @@ export const animalController = {
       }
     }
 
-    // Met à jour les propriétés de l'animal avec les nouvelles URLs d'images
+    //* Met à jour les propriétés de l'animal avec les nouvelles URLs d'images
     Object.assign(selectedAnimal, req.body, imageUrls);
 
     await selectedAnimal.save(); // Sauvegarde l'animal mis à jour
