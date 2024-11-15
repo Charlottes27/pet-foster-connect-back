@@ -14,5 +14,5 @@ POST http://localhost:3000/api/refresh-token
 Content-Type: application/json
 
 {
-  "token": "METTRE LE TOKEN  OBTENU ICI"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzE0MzU0ODksImV4cCI6MTczMTQzOTA4OX0.ejPSDBKkWC5aitdokANblimgatdOBuIMVRdnkLs_w3g"
 }

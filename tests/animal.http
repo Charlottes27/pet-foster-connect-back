@@ -1,3 +1,24 @@
+
+### Filtre par espèce
+GET http://localhost:3000/api/animal?species=chien
+
+### la race
+GET http://localhost:3000/api/animal?breed=Boxer
+
+### la taille
+GET http://localhost:3000/api/animal?size=grand
+
+
+
+
+### Filtre par âge 
+GET http://localhost:3000/api/animal?age=2
+
+### Filitre par âge + espèce
+GET http://localhost:3000/api/animal?species=chien&age=2
+
+
+
 ### Requête GET pour récupérer tous les animaux
 GET http://localhost:3000/api/animal
 Accept: application/json

@@ -1,0 +1,7 @@
+### Mettre à jour la photo de profil d'une famille
+PATCH http://localhost:3000/api/family/2
+Content-Type: application/json
+
+{
+  "imageUrl": "https://img.freepik.com/photos-premium/raton-laveur-portant-lunettes-soleil-chemise-rayee-se-tient-dans-champ-herbeux_1002555-24170.jpg"
+}

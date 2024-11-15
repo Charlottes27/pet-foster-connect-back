@@ -13,5 +13,6 @@ export const router = Router();
 //* Routes accessibles uniquement aux admin et aux associations
 router.get("/", /* isRoleAuthorizedMiddleware(["admin","association"]), */ withTryCatch(familyController.getAllFamilies)); // Route pour lister toutes les familles
 router.get("/:id", /* isRoleAuthorizedMiddleware(["admin", "association"]), */ withTryCatch(familyController.getFamilyById)); // Route pour obtenir le détail d'une famille
-router.patch("/:id",/*  isRoleAuthorizedMiddleware(["family"]), verifyFamily(),  */validate(patchSchema, "body"), withTryCatch(familyController.patchFamily));
-router.delete("/:id",/*  isRoleAuthorizedMiddleware(["family"]), verifyFamily(),  */withTryCatch(familyController.deleteFamily))
+router.patch("/:id", /* isRoleAuthorizedMiddleware(["family"]), verifyFamily(),  */validate(patchSchema, "body"), withTryCatch(familyController.patchFamily));
+router.delete("/:id", /* isRoleAuthorizedMiddleware(["family"]), verifyFamily(), */ withTryCatch(familyController.deleteFamily))
+

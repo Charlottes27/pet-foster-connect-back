@@ -54,7 +54,7 @@ export const userController = {
     }
 
     //! Vérification de la validité du mot de passe
-    if (!validatePassword(user.password)) {
+    if (!validatePassword(updateUser.password)) {
       return res.status(400).json({
         message:
           "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.",

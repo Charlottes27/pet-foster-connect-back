@@ -18,7 +18,7 @@ Content-Type: application/json
   "firstname": "test",
   "lastname": "FAmilyTest",
   "email": "testFamqsilyd28@example.com",
-  "password": "Family",
+  "password": "Fa@78mily",
   "family":{
     "address": "123 Main St",
     "postal_code": "12345",
@@ -64,7 +64,7 @@ Accept: application/json
 
 
 ###* AVEC TOKEN
-DELETE http://localhost:3000/api/user/30
+DELETE http://localhost:3000/api/user/27
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoiYXNzbzkxMTUyNTVAc3hhc21wbGUuY29tIiwicm9sZSI6ImFzc29jaWF0aW9uIiwiaWF0IjoxNzMwOTgzMjA3LCJleHAiOjE3MzA5ODY4MDd9.2mSVcFkl85pRXg_GhaubUtQ5KDsnY0k3irHOKFOry_o
 Accept: application/json
 
@@ -85,9 +85,8 @@ Content-Type: application/json
 }
 
 ### Modifier une association
-PATCH http://localhost:3000/api/user/8
+PATCH http://localhost:3000/api/user/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoiYXNzb2NpYXRpb24xM0BleGVtcGxlLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTA1NTI1NSwiZXhwIjoxNzMxMDU4ODU1fQ.qDgwKguiVn2nWcqOoz6mLctgAApGAq0auhX5GBJkOFI
 
 {
   "association": {
@@ -98,10 +97,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsI
 ###* AVEC TOKEN
 PATCH http://localhost:3000/api/user/43
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDMsImVtYWlsIjoidGVzdEZhbXFzaWx5ZDEzQGV4YW1wbGUuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTA2MjM1MCwiZXhwIjoxNzMxMDY1OTUwfQ.Yj-hfePdusMmCHFja3c83nx4tu8JbpJ8lTne547nOLU
 
 {
-  "firstname": "Jea",
+  "firstname": "Jean",
   "email": "jeandupont@email.com",
   "password": "password",
   "family": {
@@ -112,12 +110,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDMsImVtYWlsI
 ###* AVEC TOKEN
 PATCH http://localhost:3000/api/user/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMsImVtYWlsIjoidGVzdEZhbXFzaWx5ZDJAZXhhbXBsZS5jb20iLCJyb2xlIjoiZmFtaWx5IiwiaWF0IjoxNzMxMDU1MzA5LCJleHAiOjE3MzEwNTg5MDl9.KJkzhdIJW_sbf_Fm2envqxrP_GeG8P4LcERjDBJF7Tw
 
 {
   "firstname": "Jean",
   "email": "jeandupont@email.com",
-  "password": "password",
+  "password": "password98@M",
   "family": {
     "address": "rue des Quesadillas en folie"
   }
