@@ -34,14 +34,14 @@ Content-Type: application/json
 {
   "firstname": "test",
   "lastname": "asso",
-  "email": "association15@exemple.com",
+  "email": "associatioln1541@exemple.com",
   "password": "Association1990*",
   "association":{
     "address": "123 Main St",
     "postal_code": "12345",
     "city": "Paris",
     "phone": "0123456789",
-    "rna_number": "W100000003",
+    "rna_number": "W102000203",
     "representative": "asso"
   }
 

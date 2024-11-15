@@ -24,7 +24,7 @@ GET http://localhost:3000/api/animal
 Accept: application/json
 
 ### Requête GET pour récupérer un animal par son ID
-GET http://localhost:3000/api/animal/72
+GET http://localhost:3000/api/animal/1
 Accept: application/json
 
 #-------------Requête POST pour créer un nouvel animal (association)-----
@@ -46,7 +46,7 @@ Content-Type: application/json
 ###* AVEC TOKEN
 POST http://localhost:3000/api/animal
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzEzMzg5MzMsImV4cCI6MTczMTM0MjUzM30.yZ1TAAL5b1bIbylR366vjWGZFU3N3Um74hkL-PycVZQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjksImVtYWlsIjoiYXNzb2NpYXRpb2xuMTU0MUBleGVtcGxlLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTY2NDc4NywiZXhwIjoxNzMxNjY4Mzg3fQ.DTnkX89N9dRUAWQOxOCBMn1Y3HzW4hLc5yFk3X0lLrA
 
 { 
   "name": "Janine",
@@ -54,7 +54,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiO
   "breed": "Berger Allemand",
   "gender":"F",
   "age": 5,
-  "size":"grand"
+  "size":"grand",
+   "profile_photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6oqW6GilgvbRYsX_zXwh3wckLiFKlsdqVW00C9Z0tI3ADgRhJ",
+  "photo1": "https://example.com/photo1.jpg",
+  "photo2": "https://example.com/photo2.jpg",
+  "photo3": "https://example.com/photo3.jpg"
 }
 
 #---------------------pour modifier un animal par son ID (association)--------------------
@@ -72,15 +76,19 @@ Content-Type: application/json
 }
 
 ###* AVEC TOKEN
-PATCH http://localhost:3000/api/animal/88
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzEzMzg4MjYsImV4cCI6MTczMTM0MjQyNn0.imn-Ki32lt2Slx8dqMbr-E_pEtmwuhT85YD61OU59Nc
+PATCH http://localhost:3000/api/animal/72
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjksImVtYWlsIjoiYXNzb2NpYXRpb2xuMTU0MUBleGVtcGxlLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTY2NDc4NywiZXhwIjoxNzMxNjY4Mzg3fQ.DTnkX89N9dRUAWQOxOCBMn1Y3HzW4hLc5yFk3X0lLrA
 Content-Type: application/json
 
 {
   "species": "Chat Chien",
   "breed": "expérience raté",
   "gender": "F",
-  "size": "petit"
+  "size": "petit",
+  "profile_photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6oqW6GilgvbRYsX_zXwh3wckLiFKlsdqVW00C9Z0tI3ADgRhJ",
+  "photo1": "https://ik.imagekit.io/yynn3ntzglc/cms/contenu1_focus_labrador_b488afbdc5_4bnvZc1bu.jpg",
+  "photo2": "https://www.la-spa.fr/app/app/uploads/2021/09/labrador-deskop-1.jpg",
+  "photo3": "https://d128mjo55rz53e.cloudfront.net/media/images/Blog-breed-_Labrador_Retriever.max-400x400.format-jpeg.jpg"
 }
 
 
