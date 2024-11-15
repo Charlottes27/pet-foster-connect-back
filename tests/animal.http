@@ -1,23 +1,28 @@
 
 ### Filtre par espèce
-GET http://localhost:3000/api/animal?species=rat
+GET http://localhost:3000/api/animal?species=chien
 
-###species=chat
+### la race
+GET http://localhost:3000/api/animal?breed=Boxer
+
+### la taille
+GET http://localhost:3000/api/animal?size=grand
 
 ### Filtre par âge 
 GET http://localhost:3000/api/animal?age=2
 
-### Filitre par âge + espèce avec erreur au milieu
+### Filtre par âge + espèce
+GET http://localhost:3000/api/animal?species=chien&age=2
+
+### Filtre par âge + espèce avec erreur au milieu
 GET http://localhost:3000/api/animal?species=chien&prenom=charlotte&age=2&size=petit&gender=f
-
-
 
 ### Requête GET pour récupérer tous les animaux
 GET http://localhost:3000/api/animal
 Accept: application/json
 
 ### Requête GET pour récupérer un animal par son ID
-GET http://localhost:3000/api/animal/72
+GET http://localhost:3000/api/animal/1
 Accept: application/json
 
 #-------------Requête POST pour créer un nouvel animal (association)-----
@@ -39,7 +44,7 @@ Content-Type: application/json
 ###* AVEC TOKEN
 POST http://localhost:3000/api/animal
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJwaWVycmUuZHVib2lzQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTU3NzY4OSwiZXhwIjoxNzMxNTgxMjg5fQ.dL0m4isDAJRS0bvNQWpXe0bSsLQPrwCyKqlEiW4VFeY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjksImVtYWlsIjoiYXNzb2NpYXRpb2xuMTU0MUBleGVtcGxlLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTY2NDc4NywiZXhwIjoxNzMxNjY4Mzg3fQ.DTnkX89N9dRUAWQOxOCBMn1Y3HzW4hLc5yFk3X0lLrA
 
 { 
   "name": "Janine",
@@ -47,7 +52,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiO
   "breed": "Berger Allemand",
   "gender":"F",
   "age": 5,
-  "size":"grand"
+  "size":"grand",
+   "profile_photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6oqW6GilgvbRYsX_zXwh3wckLiFKlsdqVW00C9Z0tI3ADgRhJ",
+  "photo1": "https://example.com/photo1.jpg",
+  "photo2": "https://example.com/photo2.jpg",
+  "photo3": "https://example.com/photo3.jpg"
 }
 
 #---------------------pour modifier un animal par son ID (association)--------------------
@@ -66,14 +75,18 @@ Content-Type: application/json
 
 ###* AVEC TOKEN
 PATCH http://localhost:3000/api/animal/72
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoibWF4aW1lLmNvbGxldEBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0MTc4MjAsImV4cCI6MTczMTQyMTQyMH0.ND71Ca1IysFR2ZBm3Ck2BZmdbsTGWaQqPqitOOgJ6OE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjksImVtYWlsIjoiYXNzb2NpYXRpb2xuMTU0MUBleGVtcGxlLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTY2NDc4NywiZXhwIjoxNzMxNjY4Mzg3fQ.DTnkX89N9dRUAWQOxOCBMn1Y3HzW4hLc5yFk3X0lLrA
 Content-Type: application/json
 
 {
   "species": "Chat Chien",
   "breed": "expérience raté",
   "gender": "F",
-  "size": "petit"
+  "size": "petit",
+  "profile_photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6oqW6GilgvbRYsX_zXwh3wckLiFKlsdqVW00C9Z0tI3ADgRhJ",
+  "photo1": "https://ik.imagekit.io/yynn3ntzglc/cms/contenu1_focus_labrador_b488afbdc5_4bnvZc1bu.jpg",
+  "photo2": "https://www.la-spa.fr/app/app/uploads/2021/09/labrador-deskop-1.jpg",
+  "photo3": "https://d128mjo55rz53e.cloudfront.net/media/images/Blog-breed-_Labrador_Retriever.max-400x400.format-jpeg.jpg"
 }
 
 

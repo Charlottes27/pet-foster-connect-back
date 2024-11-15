@@ -15,8 +15,11 @@ import { verifyAssociation } from "../middlewares/verifyUser.js";
 export const router = Router();
 
 //* Routes publiques
-router.get("/", withTryCatch(associationController.getAllAssociations)); // Route pour lister toutes les associations
-router.get("/:id", withTryCatch(associationController.getAssociationById)); // Route pour obtenir le détail d'une association
+router.get("/", withTryCatch(associationController.getAllAssociations)); 
+router.get(
+    "/:id",
+    withTryCatch(associationController.getAssociationById
+    )); 
 
 router.patch("/:id",verifyToken, isRoleAuthorizedMiddleware(["association"]), verifyAssociation(), validate(patchSchema, "body"), withTryCatch(associationController.patchAssociation));
 router.delete("/:id",verifyToken, isRoleAuthorizedMiddleware(["association"]), verifyAssociation(), withTryCatch(associationController.deleteAssociation));

@@ -12,6 +12,7 @@ import { router as associationRouter } from "./associationRouter.js"; // router 
 import { router as familyRouter } from "./familyRouter.js"; // router secondaire pour les routes liées aux familles d'accueil
 import { router as userRouter } from "./userRouter.js"; // router secondaire pour les routes liées aux utilisateurs
 
+
 import { validate } from "../validation/validate.js"; // Importation de la fonction de validation
 import { createSchema } from "../validation/allUser.js"; // Importation du schéma d'inscription JOI
 
@@ -36,13 +37,12 @@ router.post("/signin", withTryCatch(signinController.signinUser)); // Connexion
 router.post("/refresh-token", withTryCatch(signinController.refreshToken));
 
 
-
 // *Middleware pour gérer les routes non trouvées
 router.use((req, res, next)=>{
   next(new HttpError(404, "Resource not found")); 
 });
 
-// *Middleware de gestion globale des erreurs
+// *Middleware de gestion globale des erreursS
 router.use(errorHandler); 
 
 
