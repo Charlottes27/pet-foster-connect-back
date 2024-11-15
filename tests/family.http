@@ -6,7 +6,7 @@ Accept: application/json
 
 ###* AVEC TOKEN
 GET http://localhost:3000/api/family
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzE0MTc4MjksImV4cCI6MTczMTQyMTQyOX0.iMjaGmmJyYJshydelxMHwLmWNVo6u3D_k5bjQX4UADA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0Mzk3NTEsImV4cCI6MTczMTQ0MzM1MX0.r3nR926PDl3lBiseRg4BO7SKC8MnPHPURCvVTWzl2gk
 Accept: application/json
 
 #----------------Récupérer une famille par son ID (admin asso)----------------
@@ -17,14 +17,14 @@ Accept: application/json
 
 
 ### AVEC TOKEN
-GET http://localhost:3000/api/family/10
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzE0MTc4MjksImV4cCI6MTczMTQyMTQyOX0.iMjaGmmJyYJshydelxMHwLmWNVo6u3D_k5bjQX4UADA
+GET http://localhost:3000/api/family/24
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzYsImVtYWlsIjoidGVzdEZhbXFzaWx5ZDM2QGV4YW1wbGUuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTYwMDM3MiwiZXhwIjoxNzMxNjAzOTcyfQ.8I5VNAewBdlEh_d9AXucTrNO98aAGgvbd64oCz1IiOA
 Accept: application/json
 
 ### modification d'une family
-PATCH http://localhost:3000/api/family/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzE0MTc4MjksImV4cCI6MTczMTQyMTQyOX0.iMjaGmmJyYJshydelxMHwLmWNVo6u3D_k5bjQX4UADA
+PATCH http://localhost:3000/api/family/12
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoiY2xhcmEubWV5ZXJAZW1haWwuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTUwODM4MCwiZXhwIjoxNzMxNTExOTgwfQ.cU_KpPRNwaUAUbaWfjZBo3-dzuMb6iL25Suw3apTqQE
 
 {
     "address": "rue de Gisors POOOues",
@@ -33,6 +33,7 @@ Content-Type: application/json
         "lastname": "Bourgeois",
         "password": "CoucouToi383!"
     }
+    "address": "rue de Froid froid"
 }
 
 ### Suppression d'une family

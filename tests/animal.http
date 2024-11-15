@@ -8,16 +8,14 @@ GET http://localhost:3000/api/animal?breed=Boxer
 ### la taille
 GET http://localhost:3000/api/animal?size=grand
 
-
-
-
 ### Filtre par âge 
 GET http://localhost:3000/api/animal?age=2
 
-### Filitre par âge + espèce
+### Filtre par âge + espèce
 GET http://localhost:3000/api/animal?species=chien&age=2
 
-
+### Filtre par âge + espèce avec erreur au milieu
+GET http://localhost:3000/api/animal?species=chien&prenom=charlotte&age=2&size=petit&gender=f
 
 ### Requête GET pour récupérer tous les animaux
 GET http://localhost:3000/api/animal
@@ -102,6 +100,6 @@ Accept: application/json
 
 ###* AVEC TOKEN
 
-DELETE http://localhost:3000/api/animal/87
+DELETE http://localhost:3000/api/animal/73
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJwaWVycmUuZHVib2lzQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTMzODg1MiwiZXhwIjoxNzMxMzQyNDUyfQ.VPbjuZnf-6sSzv12mP-Mc-NMmteFVRIJYRF1Kce1u2s
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJwaWVycmUuZHVib2lzQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTQxNzc5MSwiZXhwIjoxNzMxNDIxMzkxfQ.6LkXIAhHBzvZ-wdmEFnUVSftLvIaVoUQQkmCq3fd6P0

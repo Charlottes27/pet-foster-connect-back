@@ -62,7 +62,7 @@ export const createUserController = {
       delete userAssociation.password;
 
       // Génération du token
-      const token = generateToken(newUser);
+      const token = generateToken(userAssociation);
 
       res.status(201).json({
         message: "Inscription réussie",
@@ -95,7 +95,7 @@ export const createUserController = {
       delete userFamily.password;
 
       // Génération du token
-      const token = generateToken(newUser);
+      const token = generateToken(userFamily);
 
       res.status(201).json({
         message: "Inscription réussie",

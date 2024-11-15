@@ -5,7 +5,7 @@ GET http://localhost:3000/api/ask
 
 ###* AVEC TOKEN
 GET http://localhost:3000/api/ask
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhbGljZS5iZXJuYXJkQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTM0MzA5OCwiZXhwIjoxNzMxMzQ2Njk4fQ.xmxDXR6SJ3xaOJSNOteEaOk6xtL0gFzVv7czCVxBTas
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhbGljZS5iZXJuYXJkQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTQ4NzQ4NywiZXhwIjoxNzMxNDkxMDg3fQ.04148tRpkxGKG1a4DUMTHBaO87qdL4Z1U8OXdw-LpjY
 
 #---------------Obtenir le détail d'une alerte -----------
 
@@ -15,7 +15,7 @@ GET http://localhost:3000/api/ask/3
 
 ###* AVEC TOKEN 
 GET http://localhost:3000/api/ask/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzQsImVtYWlsIjoiYXNzbzkxMTUyNTVAc3hhc21wbGUuY29tIiwicm9sZSI6ImFzc29jaWF0aW9uIiwiaWF0IjoxNzMwOTg3MDUxLCJleHAiOjE3MzA5OTA2NTF9.rinC9j2FxD3Df--nfW6Kwg5EJGkoo11GCB7FRHhzk0M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhbGljZS5iZXJuYXJkQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTQ4NzQ4NywiZXhwIjoxNzMxNDkxMDg3fQ.04148tRpkxGKG1a4DUMTHBaO87qdL4Z1U8OXdw-LpjY
 
 
 #---------------Créer une nouvelle alerte -----------------------
@@ -31,12 +31,12 @@ Content-Type: application/json
 
 ###* AVEC TOKEN
 POST http://localhost:3000/api/ask
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzQsImVtYWlsIjoiYXNzbzkxMTUyNTVAc3hhc21wbGUuY29tIiwicm9sZSI6ImFzc29jaWF0aW9uIiwiaWF0IjoxNzMwOTg3MDUxLCJleHAiOjE3MzA5OTA2NTF9.rinC9j2FxD3Df--nfW6Kwg5EJGkoo11GCB7FRHhzk0M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicGhpbGlwcGUuYm91cmdlb2lzQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzE0ODc1MzUsImV4cCI6MTczMTQ5MTEzNX0.Cs6NUwY6Clb-B4c3ck4eA8S2BeZCjQFiFEa4c79ZsRY
 Content-Type: application/json
 
 {
   "id_family": 1,
-  "id_animal": 8
+  "id_animal": 12
 }
 
 #------------------Modifier une alerte--------------------------
@@ -51,19 +51,3 @@ Content-Type: application/json
 
 
 
-###* AVEC TOKEN
-PATCH http://localhost:3000/api/ask/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzQsImVtYWlsIjoiYXNzbzkxMTUyNTVAc3hhc21wbGUuY29tIiwicm9sZSI6ImFzc29jaWF0aW9uIiwiaWF0IjoxNzMwOTg3MDUxLCJleHAiOjE3MzA5OTA2NTF9.rinC9j2FxD3Df--nfW6Kwg5EJGkoo11GCB7FRHhzk0M
-Content-Type: application/json
-
-{
-  "status": "En cours"
-}
-
-### Spprimer une demande
-PATCH http://localhost:3000/api/ask/3
-Content-Type: application/json
-
-{
-  "status": "rejeté"
-}

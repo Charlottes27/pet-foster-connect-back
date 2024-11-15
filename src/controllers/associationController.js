@@ -51,18 +51,6 @@ export const associationController = {
       return next(new HttpError(404, "Association not found"));
     }
 
-    //! Vérification de la validité du mot de passe
-    if (
-      updateAssociation.user &&
-      updateAssociation.user.password &&
-      !validatePassword(updateAssociation.user.password)
-    ) {
-      return res.status(400).json({
-        message:
-          "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.",
-      });
-    }
-
     const transaction = await sequelize.transaction();
 
     try {
@@ -102,9 +90,31 @@ export const associationController = {
           id: user.id,
         };
 
-        // Hachage du mot de passe
-        if (updateAssociation.user.password) {
-          userData.password = Scrypt.hash(updateAssociation.user.password);
+        // Gestion du changement de mot de passe
+        if (updateAssociation.user.currentPassword && updateAssociation.user.newPassword && updateAssociation.user.confirmPassword) {
+          // Vérification du mot de passe actuel
+          const isCurrentPasswordValid = await Scrypt.compare(updateAssociation.user.currentPassword, user.password);
+          if (!isCurrentPasswordValid) {
+            await transaction.rollback();
+            return res.status(400).json({ message: "Le mot de passe actuel est incorrect." });
+          }
+
+          // Vérification que le nouveau mot de passe et sa confirmation correspondent
+          if (updateAssociation.user.newPassword !== updateAssociation.user.confirmPassword) {
+            await transaction.rollback();
+            return res.status(400).json({ message: "Le nouveau mot de passe et sa confirmation ne correspondent pas." });
+          }
+
+          // Validation du nouveau mot de passe
+          if (!validatePassword(updateAssociation.user.newPassword)) {
+            await transaction.rollback();
+            return res.status(400).json({
+              message: "Le nouveau mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.",
+            });
+          }
+          
+          // Hachage du mot de passe
+          userData.password = Scrypt.hash(updateAssociation.user.newPassword);
         }
 
         // Mise à jour du User en BDD
@@ -144,7 +154,10 @@ export const associationController = {
       throw new HttpError(404, "Association not found");
     }
 
+    const user = await selectAssociation.getUser();
+
     await selectAssociation.destroy();
+    await user.destroy();
     res.status(204).end();
   },
 };

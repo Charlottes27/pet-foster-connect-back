@@ -35,7 +35,7 @@ export const signinController = {
       return res.status(400).json({ message: "Email invalide" });
     }
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email }, include: ["family", "association"]});
     if (!user) {
       return res.status(401).json({ message: "Identifiants ou mot de passe incorrect" });
     }
@@ -54,7 +54,7 @@ export const signinController = {
     res.status(200).json({
       message: "Connexion réussie",
       token,
-      user: { email: user.email, role: user.role, id: user.id },
+      user: { email: user.email, role: user.role, id: user.id, id_family: user.family ? user.family.id : null, id_association: user.association ? user.association.id : null},
     });
   },
 

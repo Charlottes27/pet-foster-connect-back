@@ -7,7 +7,7 @@ GET http://localhost:3000/api/associations
 Accept: application/json
 
 ### Requête GET pour récupérer une association par son ID
-GET http://localhost:3000/api/association/2
+GET http://localhost:3000/api/association/7
 Accept: application/json
 
 ### Requête GET pour récupérer une association par son ID avec erreur
@@ -15,33 +15,39 @@ GET http://localhost:3000/api/association/1000
 Accept: application/json
 
 ### Requête patch pour modifier une asso
-PATCH http://localhost:3000/api/association/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDUsImVtYWlsIjoiYXNzb2NpYXRpb24xNEBleGVtcGxlLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTA2ODM2MywiZXhwIjoxNzMxMDcxOTYzfQ.Ol07BoAFETz7jML9YpVr1wLcfONdHbQ7jyMCaNSiCYc
+PATCH http://localhost:3000/api/association/2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0Mzk4ODcsImV4cCI6MTczMTQ0MzQ4N30.w2SmTTkcvMJ41Nfa0YtlHpWMExd6Noju4D57p-T1t_Y
 
 {
     "representative": "La fete du chat",
-    "address": "rue du gros minet"
+    "address": "rue du gros minet",
+    "user": {
+        "lastname": "CHACHA",
+        "password": "J'aimelesanimaux2020"
+    }
 }
 
 ### Requête patch pour modifier une asso et son user
-PATCH http://localhost:3000/api/association/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJwaWVycmUuZHVib2lzQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTMzODg1MiwiZXhwIjoxNzMxMzQyNDUyfQ.VPbjuZnf-6sSzv12mP-Mc-NMmteFVRIJYRF1Kce1u2s
+PATCH http://localhost:3000/api/association/3
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhbGljZS5iZXJuYXJkQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTUwOTY0MiwiZXhwIjoxNzMxNTEzMjQyfQ.9wt6EoV6GMzOd7_bkR5mJHhkn1ffM-Bg6zU8MOaWGKI
 
 {
     "representative": "La fete des animaux",
     "address": "rue des boules de poils",
     "user": {
         "firstname": "Chapi",
-        "password": "j'aimelesanimaux2020"
+        "currentPassword": "password",
+        "newPassword": "Password1!!",
+        "confirmPassword": "Password1!!"
     }
 }
 
 ### Requête patch pour modifier un user sans son asso
-PATCH http://localhost:3000/api/association/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJwaWVycmUuZHVib2lzQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTMzODg1MiwiZXhwIjoxNzMxMzQyNDUyfQ.VPbjuZnf-6sSzv12mP-Mc-NMmteFVRIJYRF1Kce1u2s
+PATCH http://localhost:3000/api/association/2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0Mzk4ODcsImV4cCI6MTczMTQ0MzQ4N30.w2SmTTkcvMJ41Nfa0YtlHpWMExd6Noju4D57p-T1t_Y
 
 {
     "user": {
@@ -51,10 +57,10 @@ Content-Type: application/json
 }
 
 ### Requête patch pour modifier une asso et son user avec erreur
-PATCH http://localhost:3000/api/association/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzEzMzg4MjYsImV4cCI6MTczMTM0MjQyNn0.imn-Ki32lt2Slx8dqMbr-E_pEtmwuhT85YD61OU59Nc
-
+PATCH http://localhost:3000/api/association/2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0Mzk4ODcsImV4cCI6MTczMTQ0MzQ4N30.w2SmTTkcvMJ41Nfa0YtlHpWMExd6Noju4D57p-T1t_Y
+
 
 {
     "representative": "la maison des animaux",
@@ -66,5 +72,44 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/association/1/animal
+GET http://localhost:3000/api/association/7/animal
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoibWF4aW1lLmNvbGxldEBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0MTc4MjAsImV4cCI6MTczMTQyMTQyMH0.ND71Ca1IysFR2ZBm3Ck2BZmdbsTGWaQqPqitOOgJ6OE
+
+###
+GET http://localhost:3000/api/association/7/animal/71
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoibWF4aW1lLmNvbGxldEBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0MTc4MjAsImV4cCI6MTczMTQyMTQyMH0.ND71Ca1IysFR2ZBm3Ck2BZmdbsTGWaQqPqitOOgJ6OE
+
+###
+GET http://localhost:3000/api/association/2/ask
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0OTE4MTksImV4cCI6MTczMTQ5NTQxOX0.KvOV6d4Y6HMnSUHYUKhmVFEs-JySCndY0uLx_GaOZAE
+
+###
+GET http://localhost:3000/api/association/2/ask/3
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0OTE4MTksImV4cCI6MTczMTQ5NTQxOX0.KvOV6d4Y6HMnSUHYUKhmVFEs-JySCndY0uLx_GaOZAE
+
+###* AVEC TOKEN
+PATCH http://localhost:3000/api/association/2/ask/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0OTE4MTksImV4cCI6MTczMTQ5NTQxOX0.KvOV6d4Y6HMnSUHYUKhmVFEs-JySCndY0uLx_GaOZAE
+Content-Type: application/json
+
+{
+  "status": "En cours"
+}
+
+### Spprimer une demande
+PATCH http://localhost:3000/api/association/2/ask/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0OTE4MTksImV4cCI6MTczMTQ5NTQxOX0.KvOV6d4Y6HMnSUHYUKhmVFEs-JySCndY0uLx_GaOZAE
+
+{
+  "status": "rejeté"
+}
+
+###
+
+DELETE http://localhost:3000/api/association/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE1NzYzMjIsImV4cCI6MTczMTU3OTkyMn0.D3cwjrnwAtlDM1BZHtlKapxr-jxsgdb8RCaXfFMlwjw
