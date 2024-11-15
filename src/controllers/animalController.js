@@ -1,6 +1,11 @@
 import { Animal, Association } from "../models/index.js";
 import HttpError from "../middlewares/httperror.js";
 import { Op } from "sequelize";
+import cloudinary from "../config/cloudinaryConfig.js"; // Importez votre configuration Cloudinary
+import validator from "validator";
+
+const { isURL } = validator;
+
 
 export const animalController = {
   //! Recuperer tous les animaux
@@ -99,9 +104,46 @@ export const animalController = {
     const association = await Association.findOne({
       where: { id_user: req.user.id },
     });
-    const animal = req.body;
-    animal.id_association = association.id;
-    const newAnimal = await Animal.create(animal); // Crée un nouvel animal avec les données fournies dans la requête
+
+    const animalData = req.body;
+
+    //! Gestion des images
+    const imageUrls = {};
+
+    //* Upload de la photo de profil si fournie
+    if (animalData.profile_photo && isURL(animalData.profile_photo)) {
+      const uploadResultProfilePhoto = await cloudinary.v2.uploader.upload(
+        animalData.profile_photo,
+        {
+          resource_type: "image",
+        }
+      );
+      imageUrls.profile_photo = uploadResultProfilePhoto.secure_url;
+    }
+
+    //* Upload des autres photos si fournies
+    for (let i = 1; i <= 3; i++) {
+      const photoKey = `photo${i}`;
+      if (animalData[photoKey] && isURL(animalData[photoKey])) {
+        const uploadResultPhoto = await cloudinary.v2.uploader.upload(
+          animalData[photoKey],
+          {
+            resource_type: "image",
+          }
+        );
+        imageUrls[photoKey] = uploadResultPhoto.secure_url;
+      }
+    }
+
+    //* Ajout des URL d'images aux données de l'animal
+    Object.assign(animalData, imageUrls);
+
+    // Associer l'animal à l'association
+    animalData.id_association = association.id;
+
+    // Créer un nouvel animal avec les données fournies dans la requête
+    const newAnimal = await Animal.create(animalData);
+
     res.status(201).json(newAnimal); // Renvoie la réponse avec le nouvel animal créé
   },
 
@@ -137,6 +179,7 @@ export const animalController = {
       where: { id_user: req.user.id },
     });
     const animalId = req.params.id;
+
     const selectedAnimal = await Animal.findByPk(animalId);
 
     if (!selectedAnimal) {
@@ -147,7 +190,63 @@ export const animalController = {
     }
 
     if (association.id !== selectedAnimal.id_association) {
-      throw new HttpError(403, "Accès interdit: Vous n'etes pas habilité");
+      throw new HttpError(403, "Accès interdit : Vous n'êtes pas habilité");
+    }
+
+    //! Gestion des images pour mise à jour
+    const imageUrls = {};
+
+    //* Upload de la photo de profil si fournie
+    if (req.body.profile_photo && isURL(req.body.profile_photo)) {
+      const uploadResultProfilePhoto = await cloudinary.v2.uploader.upload(
+        req.body.profile_photo,
+        {
+          resource_type: "image",
+        }
+      );
+      imageUrls.profile_photo = uploadResultProfilePhoto.secure_url;
+    }
+
+    //* Upload des autres photos si fournies
+    for (let i = 1; i <= 3; i++) {
+      const photoKey = `photo${i}`;
+      if (req.body[photoKey] && isURL(req.body[photoKey])) {
+        const uploadResultPhoto = await cloudinary.v2.uploader.upload(
+          req.body[photoKey],
+          {
+            resource_type: "image",
+          }
+        );
+        imageUrls[photoKey] = uploadResultPhoto.secure_url;
+      }
+    }
+
+    //* Met à jour les propriétés de l'animal avec les nouvelles URLs d'images
+    Object.assign(selectedAnimal, req.body, imageUrls);
+
+    await selectedAnimal.save(); // Sauvegarde l'animal mis à jour
+
+    res.status(200).json(selectedAnimal);
+  },
+
+  //! Supprimer un animal
+  deleteAnimal: async (req, res) => {
+    const association = await Association.findOne({
+      where: { id_user: req.user.id },
+    });
+
+    const animalId = req.params.id;
+    const selectedAnimal = await Animal.findByPk(animalId);
+
+    if (!selectedAnimal) {
+      throw new HttpError(
+        404,
+        "Animal non trouvé. Veuillez vérifier l'animal demandé"
+      );
+    }
+
+    if (association.id !== selectedAnimal.id_association) {
+      throw new HttpError(403, "Accès interdit : Vous n'êtes pas habilité");
     }
 
     await selectedAnimal.destroy();

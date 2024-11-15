@@ -20,6 +20,7 @@ export function verifyFamily () {
     };
 };
 
+
 export function verifyAssociation () {
     return async function (req, res, next) {
         const associationId = req.params.id || req.params.associationId;

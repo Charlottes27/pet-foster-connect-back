@@ -5,8 +5,6 @@ import { fileURLToPath } from "url"; // Utilisé pour manipuler les URL et obten
 import cors from "cors"; 
 import mainRouter from "./src/routers/mainRouter.js"; // Importation du routeur principal de l'application
 
-console.log(process.env);
-
 
 // ! Configuration des chemins d'accès aux fichiers
 //Cette configuration (__filename et __dirname) est nécessaire en utilisant les modules ESM,
@@ -24,6 +22,8 @@ app.use(
   })
 );
 
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 // Middleware pour traiter le JSON
 app.use(express.json());
 

@@ -58,27 +58,18 @@ export const signinController = {
     });
   },
 
-  //! Méthode pour rafraîchir le token JWT
-  async refreshToken(req, res) {
-    const { token } = req.body; // Récupère le token actuel depuis le front-end
+  //! Méthode pour rafraîchir le token JWTasync refreshToken(req, res) {
+async refreshToken(req, res) {
+  const { token } = req.body; 
+  
+  const decoded = jwt.verify(token, JWT_SECRET); 
 
-    // Vérifie si le token actuel est valide
-    try {
-      const decoded = jwt.verify(token, JWT_SECRET);
-
-      // Génère un nouveau token avec les mêmes informations utilisateur
-      const newToken = generateToken({
-        id: decoded.id,
-        email: decoded.email,
-        role: decoded.role,
-      });
-
-      // Envoie le nouveau token en réponse
-      res.status(200).json({ token: newToken });
-    } catch (error) {
-      // En cas d'erreur (par exemple, si le token est expiré)
-      res.status(401).json({ message: "Token invalide ou expiré" });
-    }
-  },
+  const newToken = generateToken({
+    id: decoded.id,
+    email: decoded.email,
+    role: decoded.role,
+  });
+  
+  res.status(200).json({ token: newToken });
+}
 };
-
