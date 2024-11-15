@@ -1,3 +1,17 @@
+
+### Filtre par espèce
+GET http://localhost:3000/api/animal?species=rat
+
+###species=chat
+
+### Filtre par âge 
+GET http://localhost:3000/api/animal?age=2
+
+### Filitre par âge + espèce avec erreur au milieu
+GET http://localhost:3000/api/animal?species=chien&prenom=charlotte&age=2&size=petit&gender=f
+
+
+
 ### Requête GET pour récupérer tous les animaux
 GET http://localhost:3000/api/animal
 Accept: application/json
@@ -25,7 +39,7 @@ Content-Type: application/json
 ###* AVEC TOKEN
 POST http://localhost:3000/api/animal
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzEzMzg5MzMsImV4cCI6MTczMTM0MjUzM30.yZ1TAAL5b1bIbylR366vjWGZFU3N3Um74hkL-PycVZQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJwaWVycmUuZHVib2lzQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTU3NzY4OSwiZXhwIjoxNzMxNTgxMjg5fQ.dL0m4isDAJRS0bvNQWpXe0bSsLQPrwCyKqlEiW4VFeY
 
 { 
   "name": "Janine",
@@ -51,8 +65,8 @@ Content-Type: application/json
 }
 
 ###* AVEC TOKEN
-PATCH http://localhost:3000/api/animal/88
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzEzMzg4MjYsImV4cCI6MTczMTM0MjQyNn0.imn-Ki32lt2Slx8dqMbr-E_pEtmwuhT85YD61OU59Nc
+PATCH http://localhost:3000/api/animal/72
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoibWF4aW1lLmNvbGxldEBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0MTc4MjAsImV4cCI6MTczMTQyMTQyMH0.ND71Ca1IysFR2ZBm3Ck2BZmdbsTGWaQqPqitOOgJ6OE
 Content-Type: application/json
 
 {
@@ -73,6 +87,6 @@ Accept: application/json
 
 ###* AVEC TOKEN
 
-DELETE http://localhost:3000/api/animal/87
+DELETE http://localhost:3000/api/animal/73
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJwaWVycmUuZHVib2lzQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTMzODg1MiwiZXhwIjoxNzMxMzQyNDUyfQ.VPbjuZnf-6sSzv12mP-Mc-NMmteFVRIJYRF1Kce1u2s
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJwaWVycmUuZHVib2lzQGVtYWlsLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTQxNzc5MSwiZXhwIjoxNzMxNDIxMzkxfQ.6LkXIAhHBzvZ-wdmEFnUVSftLvIaVoUQQkmCq3fd6P0

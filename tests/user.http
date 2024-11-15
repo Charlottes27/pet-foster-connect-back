@@ -3,7 +3,7 @@ GET http://localhost:3000/api/user
 Content-Type: application/json
 
 ### Visulaiser un utilisateur
-GET http://localhost:3000/api/user/20
+GET http://localhost:3000/api/user/1
 Content-Type: application/json
 
 ### Visulaiser un utilisateur qui n'existe pas
@@ -17,8 +17,8 @@ Content-Type: application/json
 {
   "firstname": "test",
   "lastname": "FAmilyTest",
-  "email": "testFamqsilyd28@example.com",
-  "password": "Family",
+  "email": "testFamqsilyd36@example.com",
+  "password": "Family#2",
   "family":{
     "address": "123 Main St",
     "postal_code": "12345",
@@ -64,15 +64,15 @@ Accept: application/json
 
 
 ###* AVEC TOKEN
-DELETE http://localhost:3000/api/user/30
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoiYXNzbzkxMTUyNTVAc3hhc21wbGUuY29tIiwicm9sZSI6ImFzc29jaWF0aW9uIiwiaWF0IjoxNzMwOTgzMjA3LCJleHAiOjE3MzA5ODY4MDd9.2mSVcFkl85pRXg_GhaubUtQ5KDsnY0k3irHOKFOry_o
+DELETE http://localhost:3000/api/user/17
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImVtYWlsIjoianVsaWVuLnZhc3NldXJAZW1haWwuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTQyMjgyNiwiZXhwIjoxNzMxNDI2NDI2fQ.R5wW-bH9Gb6LdqBISbeBSrv-AddTBldaHn5evtCBePY
 Accept: application/json
 
 
 #------------------Modifier un utilisateur (asso family)---------------------
 
 ###! SANS TOKEN
-PATCH http://localhost:3000/api/user/34
+PATCH http://localhost:3000/api/user/17
 Content-Type: application/json
 
 {
@@ -85,9 +85,9 @@ Content-Type: application/json
 }
 
 ### Modifier une association
-PATCH http://localhost:3000/api/user/8
+PATCH http://localhost:3000/api/user/7
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoiYXNzb2NpYXRpb24xM0BleGVtcGxlLmNvbSIsInJvbGUiOiJhc3NvY2lhdGlvbiIsImlhdCI6MTczMTA1NTI1NSwiZXhwIjoxNzMxMDU4ODU1fQ.qDgwKguiVn2nWcqOoz6mLctgAApGAq0auhX5GBJkOFI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0MjQxMjksImV4cCI6MTczMTQyNzcyOX0.5yrnUCvB7PAhpSSR_HMbrOUtPRK5Fn91zZ0RZhqeO2M
 
 {
   "association": {
@@ -96,14 +96,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsI
 }
 
 ###* AVEC TOKEN
-PATCH http://localhost:3000/api/user/43
+PATCH http://localhost:3000/api/user/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDMsImVtYWlsIjoidGVzdEZhbXFzaWx5ZDEzQGV4YW1wbGUuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTA2MjM1MCwiZXhwIjoxNzMxMDY1OTUwfQ.Yj-hfePdusMmCHFja3c83nx4tu8JbpJ8lTne547nOLU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzE0MjQwNDYsImV4cCI6MTczMTQyNzY0Nn0.dtu7Kzgb5Vkwjk1pspiZuEFmPxJELvwCN89xTkEI6Tc
 
 {
   "firstname": "Jea",
   "email": "jeandupont@email.com",
-  "password": "password",
+  "password": "bonjourLemonde2024!",
   "family": {
     "address": "rue des Quesadillas en folie"
   }

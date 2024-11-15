@@ -15,6 +15,8 @@ export const patchSchema = Joi.object({
         firstname: Joi.string(),
         lastname: Joi.string(),
         email: Joi.string().email(),
-        password: Joi.string(),
+        currentPassword: Joi.string(),
+        newPassword: Joi.string(),
+        confirmPassword: Joi.string()
     })
 });
