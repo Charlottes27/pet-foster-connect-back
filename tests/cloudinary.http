@@ -3,5 +3,7 @@ PATCH http://localhost:3000/api/family/2
 Content-Type: application/json
 
 {
-  "imageUrl": "https://img.freepik.com/photos-premium/raton-laveur-portant-lunettes-soleil-chemise-rayee-se-tient-dans-champ-herbeux_1002555-24170.jpg"
+  "imageUrl": "https://img.freepik.com/photos-premium/chat-vetu-couleurs-danse-enthousiasme-fond-vibrant-image-capricieuse-ludique-chat-portant-vetements-vibrants-lunettes-soleil_73523-16328.jpg?semt=ais_hybrid"
 }
+
+

@@ -79,19 +79,19 @@ export const familyController = {
         await user.update(userData);
       }
 
-      // Si une image est fournie dans le corps de la requête
+      //* Si une image est fournie dans le corps de la requête
       if (updateFamily.imageUrl) {
         if (!isURL(updateFamily.imageUrl)) {
           return res.status(400).json({ error: "URL d'image invalide" });
         }
 
-        // Supprimer l'ancienne photo si elle existe
+        //* Supprimer l'ancienne photo si elle existe
         if (family.profile_photo) {
           const publicId = family.profile_photo.split("/").pop().split(".")[0]; // Extraire le public_id
           await cloudinary.v2.uploader.destroy(publicId); // Supprimer l'image de Cloudinary
         }
 
-        // Uploader l'image depuis l'URL à Cloudinary
+        //* Uploader l'image depuis l'URL à Cloudinary
         const uploadResult = await cloudinary.v2.uploader.upload(
           updateFamily.imageUrl,
           {
@@ -99,7 +99,7 @@ export const familyController = {
           }
         );
 
-        // Mettre à jour l'URL de la photo de profil dans les données
+        //* Mettre à jour l'URL de la photo de profil dans les données
         updateFamily.profile_photo = uploadResult.secure_url;
       }
 
