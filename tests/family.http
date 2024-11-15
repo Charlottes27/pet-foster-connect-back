@@ -17,8 +17,8 @@ Accept: application/json
 
 
 ### AVEC TOKEN
-GET http://localhost:3000/api/family/24
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzYsImVtYWlsIjoidGVzdEZhbXFzaWx5ZDM2QGV4YW1wbGUuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTYwMDM3MiwiZXhwIjoxNzMxNjAzOTcyfQ.8I5VNAewBdlEh_d9AXucTrNO98aAGgvbd64oCz1IiOA
+GET http://localhost:3000/api/family/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqZWFuLmR1cG9udEBlbWFpbC5jb20iLCJyb2xlIjoiZmFtaWx5IiwiaWF0IjoxNzMxNjA0ODI5LCJleHAiOjE3MzE2MDg0Mjl9.2e84IJRtSfDtScuO-FaxPSjSbUPgU2ES71KmRP_MURM
 Accept: application/json
 
 ### modification d'une family
