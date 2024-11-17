@@ -11,7 +11,7 @@ export const patchSchema = Joi.object({
   number_of_children: Joi.number().integer(),
   number_of_animals: Joi.number().integer(),
   garden: Joi.boolean(),
-  description: Joi.string(),
+  description: Joi.string().allow(''),
   profile_photo: Joi.string(), // Si vous souhaitez conserver ce champ
   id_user: Joi.number().integer(),
   user: Joi.object({

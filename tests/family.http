@@ -22,18 +22,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 Accept: application/json
 
 ### modification d'une family
-PATCH http://localhost:3000/api/family/12
+PATCH http://localhost:3000/api/family/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoiY2xhcmEubWV5ZXJAZW1haWwuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMTUwODM4MCwiZXhwIjoxNzMxNTExOTgwfQ.cU_KpPRNwaUAUbaWfjZBo3-dzuMb6iL25Suw3apTqQE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqZWFuLmR1cG9udEBlbWFpbC5jb20iLCJyb2xlIjoiZmFtaWx5IiwiaWF0IjoxNzMxODUzMTY1LCJleHAiOjE3MzE4NTY3NjV9.XrYI0bZsJIld9YZtYdwn8QxULVFKcNN0ifrEnfwA2-M
 
 {
-    "address": "rue de Gisors POOOues",
-    "user": {
-        "firstname": "Philippe",
-        "lastname": "Bourgeois",
-        "password": "CoucouToi383!"
-    }
-    "address": "rue de Froid froid"
+    
+"address": "123 Rue de la Pluie",
+"city": "Parici",
+"description": "",
+"garden": false,
+"number_of_animals": 0,
+"number_of_children": 0,
+"phone": "0987654321",
+"postal_code": "75000",
+"profile_photo": "images/users/Dupontjean-fa.webp",
+"user": {
+    "email": "jean.ducon@email.com",
+    "firstname": "Jean",
+    "lastname": "Ducon"
+}
+
 }
 
 ### Suppression d'une family

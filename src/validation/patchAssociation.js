@@ -10,7 +10,7 @@ export const patchSchema = Joi.object({
     /^0[1-9][0-9]{8}$/,
     "Merci de renseigner un numéro de téléphone français"
   ),
-  description: Joi.string(),
+  description: Joi.string().allow(''),
   status: Joi.string().default("en attente"),
   profile_photo: Joi.string(),
   user: Joi.object({
