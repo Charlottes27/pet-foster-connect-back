@@ -19,10 +19,8 @@ export const animalController = {
       }
 
       const family = await Family.findOne({where: {id_user : req.user.id}});
-      console.log(family);
       if (family) {
         const myAnimals = await family.getAnimalsFamily();
-        console.log(myAnimals);
         return res.json(myAnimals);
       }
     }
