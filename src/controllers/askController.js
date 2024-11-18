@@ -43,10 +43,24 @@ export const askController = {
   //! Méthode pour ajouter une demande
   createAsk: async (req, res) => {
     const family = await Family.findOne({
-      where: { id_user: req.user.id },
+      where: { id_user: req.user.id }
     })
     const ask = req.body;
     ask.id_family = family.id;
+
+     // Vérifier si une demande similaire existe déjà
+    const existingAsk = await Ask.findOne({
+      where: {
+        id_family: ask.id_family,
+        id_animal: ask.id_animal,
+        status: "en attente",
+      },
+    });
+
+    if (existingAsk) {
+      return res.status(409).json({ message: "A similar request already exists." });
+    }
+
     const newAsk = await Ask.create(ask); 
     res.status(201).json(newAsk); 
   },
@@ -55,19 +69,26 @@ export const askController = {
   patchAsk: async (req, res) => {
     const id = req.params.askId; 
     const newStatut = (req.body);
-    console.log(newStatut);
     const ask = await Ask.findByPk(id);
 
     if (!ask) {
       throw new HttpError(404, "Request not found."); 
     }
 
-    newStatut.status.toLowerCase();
+    newStatut.status = newStatut.status.toLowerCase();
 
     // ask.status = req.body.status;
     Object.assign(ask, newStatut); // Mise à jour des données de la demande
     await ask.save(); // Enregistrement de la nouvelle demande
+
+    if (ask.status === "validé") {
+      const newFamilyId = {id_family : ask.id_family}
+      const animal = await ask.getAnimal();
+
+      Object.assign(animal, newFamilyId);
+      await animal.save();
+    }
+
     res.status(200).json(ask); // Envoie de la nouvelle demande mise à jour en réponse sous forme de JSON
-    
   },
 };

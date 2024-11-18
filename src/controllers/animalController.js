@@ -1,4 +1,4 @@
-import { Animal, Association } from "../models/index.js";
+import { Animal, Association, Family } from "../models/index.js";
 import HttpError from "../middlewares/httperror.js";
 import { Op } from "sequelize";
 import cloudinary from "../config/cloudinaryConfig.js"; // Importez votre configuration Cloudinary
@@ -15,6 +15,14 @@ export const animalController = {
       const association = await Association.findOne({where: {id_user : req.user.id}});
       if (association) {
         const myAnimals = await association.getAnimals();
+        return res.json(myAnimals);
+      }
+
+      const family = await Family.findOne({where: {id_user : req.user.id}});
+      console.log(family);
+      if (family) {
+        const myAnimals = await family.getAnimalsFamily();
+        console.log(myAnimals);
         return res.json(myAnimals);
       }
     }
