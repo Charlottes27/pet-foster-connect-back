@@ -1,11 +1,11 @@
 BEGIN;
 
 -- Suppression des tables existantes si elles sont déjà présentes
-DROP TABLE IF EXISTS ask;
-DROP TABLE IF EXISTS animal;
+DROP TABLE IF EXISTS "user";
 DROP TABLE IF EXISTS family;
 DROP TABLE IF EXISTS association;
-DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS animal;
+DROP TABLE IF EXISTS ask;
 
 -- Création de la table des utilisateurs
 CREATE TABLE "user" (
@@ -76,12 +76,12 @@ CREATE TABLE animal (
 
 -- Création de la table des demandes entre familles et animaux
 CREATE TABLE ask (
-  id_family  INT REFERENCES family(id) ON DELETE CASCADE,
-  id_animal  INT REFERENCES animal(id) ON DELETE CASCADE,
+  id         SERIAL PRIMARY KEY,
   status     VARCHAR(15) NOT NULL,
+  id_family  INT NOT NULL REFERENCES family(id) ON DELETE CASCADE,
+  id_animal  INT NOT NULL REFERENCES animal(id) ON DELETE CASCADE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id_family, id_animal)
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Fonction pour mettre à jour le timestamp automatiquement lors des modifications

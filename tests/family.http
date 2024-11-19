@@ -1,7 +1,3 @@
-# Toker famille eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImVtYWlsIjoidGVzdEZhbWlseWQyQGV4YW1wbGUuY29tIiwicm9sZSI6ImZhbWlseSIsImlhdCI6MTczMDk4MzE0NywiZXhwIjoxNzMwOTg2NzQ3fQ.0EEraE-Y-OnGXOtfj_2gdgcMNA0ZzJcJhH4wWDgEcTk
-# Token association eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoiYXNzbzkxMTUyNTVAc3hhc21wbGUuY29tIiwicm9sZSI6ImFzc29jaWF0aW9uIiwiaWF0IjoxNzMwOTgzMjA3LCJleHAiOjE3MzA5ODY4MDd9.2mSVcFkl85pRXg_GhaubUtQ5KDsnY0k3irHOKFOry_o
-#token admin
-
 ### ---------Récupérer toutes les familles-(admin asso)--------------
 #! SANS TOKEN
 GET http://localhost:3000/api/family
@@ -10,23 +6,46 @@ Accept: application/json
 
 ###* AVEC TOKEN
 GET http://localhost:3000/api/family
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoiYXNzbzkxMTUyNTVAc3hhc21wbGUuY29tIiwicm9sZSI6ImFzc29jaWF0aW9uIiwiaWF0IjoxNzMwOTgzMjA3LCJleHAiOjE3MzA5ODY4MDd9.2mSVcFkl85pRXg_GhaubUtQ5KDsnY0k3irHOKFOry_o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJtYXJpZS5sZWZlYnZyZUBlbWFpbC5jb20iLCJyb2xlIjoiYXNzb2NpYXRpb24iLCJpYXQiOjE3MzE0Mzk3NTEsImV4cCI6MTczMTQ0MzM1MX0.r3nR926PDl3lBiseRg4BO7SKC8MnPHPURCvVTWzl2gk
 Accept: application/json
 
 #----------------Récupérer une famille par son ID (admin asso)----------------
 
 ###! SANS TOKEN
-GET http://localhost:3000/api/family/10
+GET http://localhost:3000/api/family/1
 Accept: application/json
 
 
 ### AVEC TOKEN
-GET http://localhost:3000/api/family/10
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImVtYWlsIjoiYXNzbzkxMTUyNTVAc3hhc21wbGUuY29tIiwicm9sZSI6ImFzc29jaWF0aW9uIiwiaWF0IjoxNzMwOTgzMjA3LCJleHAiOjE3MzA5ODY4MDd9.2mSVcFkl85pRXg_GhaubUtQ5KDsnY0k3irHOKFOry_o
+GET http://localhost:3000/api/family/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqZWFuLmR1cG9udEBlbWFpbC5jb20iLCJyb2xlIjoiZmFtaWx5IiwiaWF0IjoxNzMxNjA0ODI5LCJleHAiOjE3MzE2MDg0Mjl9.2e84IJRtSfDtScuO-FaxPSjSbUPgU2ES71KmRP_MURM
 Accept: application/json
 
+### modification d'une family
+PATCH http://localhost:3000/api/family/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqZWFuLmR1cG9udEBlbWFpbC5jb20iLCJyb2xlIjoiZmFtaWx5IiwiaWF0IjoxNzMxODUzMTY1LCJleHAiOjE3MzE4NTY3NjV9.XrYI0bZsJIld9YZtYdwn8QxULVFKcNN0ifrEnfwA2-M
 
+{
+    
+"address": "123 Rue de la Pluie",
+"city": "Parici",
+"description": "",
+"garden": false,
+"number_of_animals": 0,
+"number_of_children": 0,
+"phone": "0987654321",
+"postal_code": "75000",
+"profile_photo": "images/users/Dupontjean-fa.webp",
+"user": {
+    "email": "jean.ducon@email.com",
+    "firstname": "Jean",
+    "lastname": "Ducon"
+}
 
+}
 
-
-
+### Suppression d'une family
+DELETE http://localhost:3000/api/family/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzE0MTc4MjksImV4cCI6MTczMTQyMTQyOX0.iMjaGmmJyYJshydelxMHwLmWNVo6u3D_k5bjQX4UADA
+Content-Type: application/json

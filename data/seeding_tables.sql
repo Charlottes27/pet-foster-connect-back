@@ -133,3 +133,5 @@ INSERT INTO animal (name, species, breed, gender, age, size, description, profil
 ('Oliver', 'Chat', 'Chat des forêts norvégiennes', 'M', 4, 'Grand', 'Chat doux et joueur', 'images/animals_profile/69.webp', 'images/animals_photo1/69.webp', 'images/animals_photo2/69.webp', 'images/animals_photo3/69.webp', 7),
 ('Sasha', 'Chat', 'Abyssin', 'F', 2, 'Moyen', 'Chat curieux et énergique', 'images/animals_profile/70.webp', 'images/animals_photo1/70.webp', 'images/animals_photo2/70.webp', 'images/animals_photo3/70.webp', 7);
 
+INSERT INTO animal (name, species, breed, gender, age, size, description, id_family, id_association) VALUES
+('Croquette', 'Chien', 'Croisé', 'F', 1, 'Moyen', 'Chienne très vivasse mointé très ressort, et très affectueuse', 1, 7);

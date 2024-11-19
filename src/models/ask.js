@@ -14,28 +14,6 @@ export default class Ask extends Model {
 
 Ask.init(
   {
-   
-    // !Clé étrangère référant à la table family
-    id_family: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "family", // Nom de la table de référence
-        key: "id", // Clé primaire de la table de référence
-      },
-      primaryKey: true, // Indique que c'est une partie de la clé primaire
-    },
-    // !Clé étrangère référant à la table animal
-    id_animal: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "animal", // Nom de la table de référence
-        key: "id", // Clé primaire de la table de référence
-      },
-      primaryKey: true, // Indique que c'est une partie de la clé primaire
-    },
-
     // !Statut de la demande
     status: {
       type: DataTypes.STRING(15),

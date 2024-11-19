@@ -1,0 +1,26 @@
+###! Mettre à jour la photo de profil d'une famille
+PATCH http://localhost:3000/api/family/2
+Content-Type: application/json
+
+{
+  "imageUrl": "https://img.freepik.com/photos-premium/chat-vetu-couleurs-danse-enthousiasme-fond-vibrant-image-capricieuse-ludique-chat-portant-vetements-vibrants-lunettes-soleil_73523-16328.jpg?semt=ais_hybrid"
+}
+
+
+###! Mettre à jour la photo de profil d'une association
+PATCH http://localhost:3000/api/association/2
+Content-Type: application/json
+
+{
+  "imageUrl": "https://www.ensemblepourlesanimaux.org/wp-content/uploads/2017/06/logo-wwf.jpg"
+}
+
+###! Mettre à jour un animal existant (ajouter une photo)
+PATCH http://localhost:3000/api/animal/1
+Content-Type: application/json
+
+{
+  "profile_photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6oqW6GilgvbRYsX_zXwh3wckLiFKlsdqVW00C9Z0tI3ADgRhJ"
+  
+}
+

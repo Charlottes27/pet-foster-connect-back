@@ -16,7 +16,7 @@ export const createSchema = Joi.object({
         number_of_children: Joi.number().integer(),
         number_of_animals: Joi.number().integer(),
         garden: Joi.boolean(),
-        description: Joi.string(),
+        description: Joi.string().allow(''),
         profile_photo: Joi.string()
     }),
     association: Joi.object({
@@ -26,7 +26,7 @@ export const createSchema = Joi.object({
         postal_code: Joi.string().max(5).required(),
         city: Joi.string().required(),
         phone: Joi.string().pattern(/^0[1-9][0-9]{8}$/, 'Merci de renseigner un numéro de téléphone français').required(),
-        description: Joi.string(),
+        description: Joi.string().allow(''),
         status: Joi.string().default("en attente"),
         profile_photo: Joi.string()
     })
@@ -36,7 +36,9 @@ export const patchSchema = Joi.object({
     firstname: Joi.string(),
     lastname: Joi.string(),
     email: Joi.string().email(),
-    password: Joi.string(),
+    currentPassword: Joi.string(),
+    newPassword: Joi.string(),
+    confirmPassword: Joi.string(),
     family: Joi.object({
         address: Joi.string(),
         postal_code: Joi.string().max(5),
@@ -45,7 +47,7 @@ export const patchSchema = Joi.object({
         number_of_children: Joi.number().integer(),
         number_of_animals: Joi.number().integer(),
         garden: Joi.boolean(),
-        description: Joi.string(),
+        description: Joi.string().allow(''),
         profile_photo: Joi.string(),
         id_user: Joi.number().integer()
     }),
@@ -56,7 +58,7 @@ export const patchSchema = Joi.object({
         postal_code: Joi.string().max(5),
         city: Joi.string(),
         phone: Joi.string().pattern(/^0[1-9][0-9]{8}$/, 'Merci de renseigner un numéro de téléphone français'),
-        description: Joi.string(),
+        description: Joi.string().allow(''),
         status: Joi.string().default("en attente"),
         profile_photo: Joi.string()
     })

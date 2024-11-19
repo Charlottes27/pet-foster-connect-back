@@ -1,0 +1,18 @@
+# Requête pour récupérer un token
+POST http://localhost:3000/api/signin
+Content-Type: application/json
+
+{
+  "email": "alice.bernard@email.com",
+  "password": "password"
+}
+
+
+
+### Requête pour rafraîchir le token
+POST http://localhost:3000/api/refresh-token
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJzb3BoaWUubWFydGluQGVtYWlsLmNvbSIsInJvbGUiOiJmYW1pbHkiLCJpYXQiOjE3MzE0MzU0ODksImV4cCI6MTczMTQzOTA4OX0.ejPSDBKkWC5aitdokANblimgatdOBuIMVRdnkLs_w3g"
+}
