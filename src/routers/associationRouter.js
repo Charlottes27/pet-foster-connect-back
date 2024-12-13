@@ -1,6 +1,7 @@
 //! Router secondaire pour les routes liées aux associations (prefixe de route : /api/association)
 
 import { Router } from "express";
+import multer from "multer";
 import withTryCatch from "../controllers/withTryCatchController.js"; // Importation du sélectionrateur de gestion d'erreurs avec try/catch pour middlewares asynchrones
 import { associationController } from "../controllers/associationController.js";  // Importation du Controller associationController
 import { animalController } from "../controllers/animalController.js";
@@ -14,17 +15,17 @@ import { verifyAssociation } from "../middlewares/verifyUser.js";
 
 export const router = Router();
 
+const storage = multer.memoryStorage();
+const upload = multer({storage: storage});
+
 //* Routes publiques
 router.get("/", withTryCatch(associationController.getAllAssociations)); 
-router.get(
-    "/:id",
-    withTryCatch(associationController.getAssociationById
-    )); 
+router.get("/:id",withTryCatch(associationController.getAssociationById)); 
 
-router.patch("/:id",verifyToken, isRoleAuthorizedMiddleware(["association"]), verifyAssociation(), validate(patchSchema, "body"), withTryCatch(associationController.patchAssociation));
+router.patch("/:id",verifyToken, isRoleAuthorizedMiddleware(["association"]), verifyAssociation(), upload.single("profile_photo"), validate(patchSchema, "body"), withTryCatch(associationController.patchAssociation));
 router.delete("/:id",verifyToken, isRoleAuthorizedMiddleware(["association"]), verifyAssociation(), withTryCatch(associationController.deleteAssociation));
 
-router.get("/:id/animal",verifyToken, isRoleAuthorizedMiddleware(["association"]), verifyAssociation(), withTryCatch(animalController.getAllAnimals));
+router.get("/:id/animal",/*verifyToken, isRoleAuthorizedMiddleware(["association"]), verifyAssociation(),*/ withTryCatch(animalController.getAllAnimals));
 router.get("/:associationId/animal/:animalId",verifyToken, isRoleAuthorizedMiddleware(["association"]), verifyAssociation(), withTryCatch(animalController.getAnimalById));
 
 router.get("/:associationId/ask",verifyToken, isRoleAuthorizedMiddleware(["association"]), verifyAssociation(), withTryCatch(askController.getAllAsks));

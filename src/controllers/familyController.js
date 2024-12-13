@@ -3,8 +3,12 @@ import sequelize from "../models/client.js";
 import HttpError from "../middlewares/httperror.js";
 import { Scrypt } from "../auth/Scrypt.js";
 import { validatePassword } from "../validation/validatePassword.js";
-import cloudinary from "../config/cloudinaryConfig.js"; // Importez votre configuration Cloudinary
+import cloudinary from "../config/cloudinaryConfig.js" // Importez votre configuration Cloudinary
 import validator from "validator";
+import fs from "fs/promises";
+import path from "path";
+import uploadToCloudinary from "../utils/uploadToCloudinary.js";
+import { log } from "console";
 
 const { isURL } = validator;
 
@@ -86,35 +90,52 @@ export const familyController = {
           }
           
           // Hachage du mot de passe
-          userData.password = Scrypt.hash(updateFamily.user.newPassword);
+          userData.password = await Scrypt.hash(updateFamily.user.newPassword);
         }
 
         // Mise à jour du User en BDD
         await user.update(userData);
       }
 
-      //! Gestion de l'image de profil
-      if (updateFamily.imageUrl) {
-        if (!isURL(updateFamily.imageUrl)) {
-          return res.status(400).json({ error: "URL d'image invalide" });
-        }
-
-        //* Supprimer l'ancienne photo si elle existe
+      if (req.file || req.body.profile_photo === "delete") {
         if (family.profile_photo) {
-          const publicId = family.profile_photo.split("/").pop().split(".")[0]; // Extraire le public_id
-          await cloudinary.v2.uploader.destroy(publicId); // Supprimer l'image de Cloudinary
+          if (family.profile_photo.includes("images/")) {
+            const localFilePath = path.join(
+              process.cwd(),
+              "public",
+              family.profile_photo
+            );
+            try {
+              await fs.unlink(localFilePath);
+              console.log(`Fichier local supprimé : ${localFilePath}`);
+            } catch (err) {
+              console.warn(
+                `Erreur lors de la suppression du fichier local : ${err.message}`
+              );
+            }
+          } else {
+            const publicId = family.profile_photo
+              .split("/")
+              .pop()
+              .split(".")[0];
+              console.log(publicId);
+            try {
+              await cloudinary.v2.uploader.destroy(publicId);
+              console.log(`Image Cloudinary supprimée : ${publicId}`);
+            } catch (err) {
+              console.warn(
+                `Erreur lors de la suppression sur Cloudinary : ${err.message}`
+              );
+            }
+          }
         }
 
-        //* Uploader l'image depuis l'URL à Cloudinary
-        const uploadResult = await cloudinary.v2.uploader.upload(
-          updateFamily.imageUrl,
-          {
-            resource_type: "image",
-          }
-        );
-
-        //* Mettre à jour l'URL de la photo de profil dans les données
-        updateFamily.profile_photo = uploadResult.secure_url;
+        if(req.file) {
+          const uploadResult = await uploadToCloudinary(req.file, family.user.role, family.id);
+          updateFamily.profile_photo = uploadResult;
+        } else {
+          updateFamily.profile_photo = null;
+        }
       }
 
       // Mettre à jour les données de la famille
@@ -135,11 +156,12 @@ export const familyController = {
       await transaction.commit();
 
       res.status(201).json(familyObject);
-    } catch (error) {
+    } catch(error) {
       await transaction.rollback();
       throw new HttpError(500, "Error while updating user");
     }
   },
+
 
   //! Supprimer une famille
   deleteFamily: async (req, res) => {
@@ -152,6 +174,37 @@ export const familyController = {
 
     if (selectFamily.animalsFamily.length > 0) {
       throw new HttpError(409, "Deletion impossible, you are still hosting animals");
+    }
+
+    if (selectFamily.profile_photo) {
+      if (selectFamily.profile_photo.startsWith("images/")) {
+        const localFilePath = path.join(
+          process.cwd(),
+          "public",
+          selectFamily.profile_photo
+        );
+        try {
+          await fs.unlink(localFilePath);
+          console.log(`Fichier local supprimé : ${localFilePath}`);
+        } catch (err) {
+          console.warn(
+            `Erreur lors de la suppression du fichier local : ${err.message}`
+          );
+        }
+      } else {
+        const publicId = selectFamily.profile_photo
+          .split("/")
+          .pop()
+          .split(".")[0];
+        try {
+          await cloudinary.v2.uploader.destroy(publicId);
+          console.log(`Image Cloudinary supprimée : ${publicId}`);
+        } catch (err) {
+          console.warn(
+            `Erreur lors de la suppression sur Cloudinary : ${err.message}`
+          );
+        }
+      }
     }
 
     const user = await selectFamily.getUser();

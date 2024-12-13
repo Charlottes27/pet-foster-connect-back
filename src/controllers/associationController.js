@@ -5,6 +5,9 @@ import { Scrypt } from "../auth/Scrypt.js";
 import { validatePassword } from "../validation/validatePassword.js";
 import cloudinary from "../config/cloudinaryConfig.js"; // Importez votre configuration Cloudinary
 import validator from "validator";
+import fs from "fs/promises";
+import path from "path";
+import uploadToCloudinary from "../utils/uploadToCloudinary.js";
 
 const { isURL } = validator;
 
@@ -52,37 +55,9 @@ export const associationController = {
     }
 
     const transaction = await sequelize.transaction();
-
+    
     try {
       const user = await association.getUser();
-
-      //! Gestion de l'image de profil
-      if (updateAssociation.imageUrl) {
-        if (!isURL(updateAssociation.imageUrl)) {
-          return res.status(400).json({ error: "URL d'image invalide" });
-        }
-
-        //* Supprimer l'ancienne photo si elle existe
-        if (association.profile_photo) {
-          const publicId = association.profile_photo
-            .split("/")
-            .pop()
-            .split(".")[0]; // Extraire le public_id
-          await cloudinary.v2.uploader.destroy(publicId); // Supprimer l'image de Cloudinary
-        }
-
-        //* Uploader l'image depuis l'URL à Cloudinary
-        const uploadResult = await cloudinary.v2.uploader.upload(
-          updateAssociation.imageUrl,
-          {
-            resource_type: "image",
-          }
-        );
-
-        //* Mettre à jour l'URL de la photo de profil dans les données
-        updateAssociation.profile_photo = uploadResult.secure_url;
-      }
-
       if (updateAssociation.user) {
         const userData = {
           ...user.get(),
@@ -98,13 +73,13 @@ export const associationController = {
             await transaction.rollback();
             return res.status(400).json({ message: "Le mot de passe actuel est incorrect." });
           }
-
+    
           // Vérification que le nouveau mot de passe et sa confirmation correspondent
           if (updateAssociation.user.newPassword !== updateAssociation.user.confirmPassword) {
             await transaction.rollback();
             return res.status(400).json({ message: "Le nouveau mot de passe et sa confirmation ne correspondent pas." });
           }
-
+    
           // Validation du nouveau mot de passe
           if (!validatePassword(updateAssociation.user.newPassword)) {
             await transaction.rollback();
@@ -114,11 +89,52 @@ export const associationController = {
           }
           
           // Hachage du mot de passe
-          userData.password = Scrypt.hash(updateAssociation.user.newPassword);
+          userData.password = await Scrypt.hash(updateAssociation.user.newPassword);
         }
-
+    
         // Mise à jour du User en BDD
         await user.update(userData);
+      }
+
+      if (req.file || req.body.profile_photo === "delete") {
+        if (association.profile_photo) {
+          if (association.profile_photo.includes("images/")) {
+            const localFilePath = path.join(
+              process.cwd(),
+              "public",
+              association.profile_photo
+            );
+            
+            try {
+              await fs.unlink(localFilePath);
+              console.log(`Fichier local supprimé : ${localFilePath}`);
+            } catch (err) {
+              console.warn(
+                `Erreur lors de la suppression du fichier local : ${err.message}`
+              );
+            }
+          } else {
+            const publicId = association.profile_photo
+              .split("/")
+              .pop()
+              .split(".")[0];
+            try {
+              await cloudinary.v2.uploader.destroy(publicId);
+              console.log(`Image Cloudinary supprimée : ${publicId}`);
+            } catch (err) {
+              console.warn(
+                `Erreur lors de la suppression sur Cloudinary : ${err.message}`
+              );
+            }
+          }
+        }
+
+        if(req.file) {
+          const uploadResult = await uploadToCloudinary(req.file, association.user.role, association.id);
+          updateAssociation.profile_photo = uploadResult;
+        } else {
+          updateAssociation.profile_photo = null;
+        }
       }
 
       // Mettre à jour les données de l'association
@@ -141,17 +157,52 @@ export const associationController = {
       res.status(201).json(associationObject);
     } catch (error) {
       await transaction.rollback();
-      throw new HttpError(500, "Error while updating user");
+      throw new HttpError(500, "Error while updating user", error);
     }
   },
 
   //! Supprimer une association
   deleteAssociation: async (req, res) => {
     const associationId = req.params.id;
-    const selectAssociation = await Association.findByPk(associationId);
+    const selectAssociation = await Association.findByPk(associationId, {include: "animals"});
 
     if (!selectAssociation) {
       throw new HttpError(404, "Association not found");
+    }
+
+    if (selectAssociation.animals.length > 0) {
+      throw new HttpError(409, "Deletion impossible, you are still hosting animals");
+    }
+
+    if (selectAssociation.profile_photo) {
+      if (selectAssociation.profile_photo.startsWith("images/")) {
+        const localFilePath = path.join(
+          process.cwd(),
+          "public",
+          selectAssociation.profile_photo
+        );
+        try {
+          await fs.unlink(localFilePath);
+          console.log(`Fichier local supprimé : ${localFilePath}`);
+        } catch (err) {
+          console.warn(
+            `Erreur lors de la suppression du fichier local : ${err.message}`
+          );
+        }
+      } else {
+        const publicId = selectAssociation.profile_photo
+          .split("/")
+          .pop()
+          .split(".")[0];
+        try {
+          await cloudinary.v2.uploader.destroy(publicId);
+          console.log(`Image Cloudinary supprimée : ${publicId}`);
+        } catch (err) {
+          console.warn(
+            `Erreur lors de la suppression sur Cloudinary : ${err.message}`
+          );
+        }
+      }
     }
 
     const user = await selectAssociation.getUser();

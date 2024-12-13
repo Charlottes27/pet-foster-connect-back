@@ -21,10 +21,10 @@ GET http://localhost:3000/api/family/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqZWFuLmR1cG9udEBlbWFpbC5jb20iLCJyb2xlIjoiZmFtaWx5IiwiaWF0IjoxNzMxNjA0ODI5LCJleHAiOjE3MzE2MDg0Mjl9.2e84IJRtSfDtScuO-FaxPSjSbUPgU2ES71KmRP_MURM
 Accept: application/json
 
-### modification d'une family
+### modification d'une famil
 PATCH http://localhost:3000/api/family/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqZWFuLmR1cG9udEBlbWFpbC5jb20iLCJyb2xlIjoiZmFtaWx5IiwiaWF0IjoxNzMxODUzMTY1LCJleHAiOjE3MzE4NTY3NjV9.XrYI0bZsJIld9YZtYdwn8QxULVFKcNN0ifrEnfwA2-M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqZWFuLmR1cG9udEBlbWFpbC5jb20iLCJyb2xlIjoiZmFtaWx5IiwiaWF0IjoxNzMzNzYwMTA2LCJleHAiOjE3MzM3NjM3MDZ9.2O5AutChbQBR4Uzay_J4yh9QT3bTZeZ0xrB_eL15aFk
 
 {
     

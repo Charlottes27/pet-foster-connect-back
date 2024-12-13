@@ -9,19 +9,22 @@ const { isURL } = validator;
 export const animalController = {
   //! Recuperer tous les animaux
   getAllAnimals: async (req, res) => {
-    if (req.user) {
-      const association = await Association.findOne({
-        where: { id_user: req.user.id },
-      });
+    const id = parseInt(req.params.id, 10);
+    if (req.originalUrl === `/api/association/${id}/animal`) {
+      const association = await Association.findByPk(id);
       if (association) {
         const myAnimals = await association.getAnimals();
         return res.json(myAnimals);
       }
-
-      const family = await Family.findOne({ where: { id_user: req.user.id } });
-      if (family) {
-        const myAnimals = await family.getAnimalsFamily();
-        return res.json(myAnimals);
+    }
+    
+    if (req.user) {
+      if (req.user.role === "family") {
+        const family = await Family.findOne({ where: { id_user: req.user.id } });
+        if (family) {
+          const myAnimals = await family.getAnimalsFamily();
+          return res.json(myAnimals);
+        }
       }
     }
 

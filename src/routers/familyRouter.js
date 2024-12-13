@@ -1,6 +1,7 @@
 //! Router secondaire pour les routes liées aux familles d'accueil (prefixe de route : /api/family)
 
 import { Router } from "express";
+import multer from "multer";
 import withTryCatch from "../controllers/withTryCatchController.js"; // Importation du sélectionrateur de gestion d'erreurs avec try/catch pour middlewares asynchrones
 import { familyController } from "../controllers/familyController.js"; // Importation du Controller familyController
 import { animalController } from "../controllers/animalController.js";
@@ -11,10 +12,13 @@ import { verifyFamily } from "../middlewares/verifyUser.js";
 
 export const router = Router();
 
+const storage = multer.memoryStorage();
+const upload = multer({storage: storage});
+
 //* Routes accessibles uniquement aux admin et aux associations
 router.get("/", isRoleAuthorizedMiddleware(["admin","association"]), withTryCatch(familyController.getAllFamilies)); // Route pour lister toutes les familles
 router.get("/:id", isRoleAuthorizedMiddleware(["admin", "association", "family"]), verifyFamily(), withTryCatch(familyController.getFamilyById)); // Route pour obtenir le détail d'une famille
-router.patch("/:id", isRoleAuthorizedMiddleware(["family"]), verifyFamily(), validate(patchSchema, "body"), withTryCatch(familyController.patchFamily));
+router.patch("/:id", isRoleAuthorizedMiddleware(["family"]), verifyFamily(), upload.single("profile_photo"), validate(patchSchema, "body"), withTryCatch(familyController.patchFamily));
 router.delete("/:id", isRoleAuthorizedMiddleware(["family"]), verifyFamily(), withTryCatch(familyController.deleteFamily));
 
 router.get("/:id/animal", isRoleAuthorizedMiddleware(["family"]), verifyFamily(), withTryCatch(animalController.getAllAnimals))
