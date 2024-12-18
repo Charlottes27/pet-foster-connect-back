@@ -166,33 +166,6 @@ export const animalController = {
       throw new HttpError(403, "Accès interdit: Vous n'etes pas habilité");
     }
 
-    Object.assign(selectedAnimal, req.body); // Met à jour les propriétés de l'animal
-
-    await selectedAnimal.save(); // Sauvegarde l'animal mis à jour
-
-    res.status(200).json(selectedAnimal);
-  },
-
-  //! Supprimer un animal
-  deleteAnimal: async (req, res) => {
-    const association = await Association.findOne({
-      where: { id_user: req.user.id },
-    });
-    const animalId = req.params.id;
-
-    const selectedAnimal = await Animal.findByPk(animalId);
-
-    if (!selectedAnimal) {
-      throw new HttpError(
-        404,
-        "Animal non trouvé. Veuillez vérifier l'animal demandé"
-      );
-    }
-
-    if (association.id !== selectedAnimal.id_association) {
-      throw new HttpError(403, "Accès interdit : Vous n'êtes pas habilité");
-    }
-
     //! Gestion des images pour mise à jour
     const imageUrls = {};
 
@@ -227,5 +200,64 @@ export const animalController = {
     await selectedAnimal.save(); // Sauvegarde l'animal mis à jour
 
     res.status(200).json(selectedAnimal);
+  },
+
+  //! Supprimer un animal
+  deleteAnimal: async (req, res) => {
+    const association = await Association.findOne({
+      where: { id_user: req.user.id },
+    });
+
+console.log(association);
+
+    const animalId = req.params.id;
+console.log(animalId);
+    const selectedAnimal = await Animal.findByPk(animalId);
+
+    if (!selectedAnimal) {
+      throw new HttpError(
+        404,
+        "Animal non trouvé. Veuillez vérifier l'animal demandé"
+      );
+    }
+
+    if (association.id !== selectedAnimal.id_association) {
+      throw new HttpError(403, "Accès interdit : Vous n'êtes pas habilité");
+    }
+
+    if (selectedAnimal.profile_photo) {
+      if (selectedAnimal.profile_photo.startsWith("images/")) {
+        const localFilePath = path.join(
+          process.cwd(),
+          "public",
+          selectedAnimal.profile_photo
+        );
+        try {
+          await fs.unlink(localFilePath);
+          console.log(`Fichier local supprimé : ${localFilePath}`);
+        } catch (err) {
+          console.warn(
+            `Erreur lors de la suppression du fichier local : ${err.message}`
+          );
+        }
+      } else {
+        const publicId = selectedAnimal.profile_photo
+          .split("/")
+          .pop()
+          .split(".")[0];
+        try {
+          await cloudinary.v2.uploader.destroy(publicId);
+          console.log(`Image Cloudinary supprimée : ${publicId}`);
+        } catch (err) {
+          console.warn(
+            `Erreur lors de la suppression sur Cloudinary : ${err.message}`
+          );
+        }
+      }
+    }
+
+    await selectedAnimal.destroy();
+
+    res.status(204).end();
   },
 };

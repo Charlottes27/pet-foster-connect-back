@@ -47,7 +47,6 @@ export const askController = {
     })
     const ask = req.body;
     ask.id_family = family.id;
-
      // Vérifier si une demande similaire existe déjà
     const existingAsk = await Ask.findOne({
       where: {
@@ -74,7 +73,7 @@ export const askController = {
     if (!ask) {
       throw new HttpError(404, "Request not found."); 
     }
-
+console.log(newStatut);
     newStatut.status = newStatut.status.toLowerCase();
 
     // ask.status = req.body.status;
