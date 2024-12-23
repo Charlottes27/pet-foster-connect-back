@@ -3,6 +3,10 @@ import HttpError from "../middlewares/httperror.js";
 import { Op } from "sequelize";
 import cloudinary from "../config/cloudinaryConfig.js"; // Importez votre configuration Cloudinary
 import validator from "validator";
+import fs from "fs/promises";
+import path from "path";
+import uploadToCloudinary from "../utils/uploadToCloudinary.js";
+import { log } from "console";
 
 const { isURL } = validator;
 
@@ -70,6 +74,7 @@ export const animalController = {
 
   //! Récuperer un animal
   getAnimalById: async (req, res) => {
+  console.log("je suis dans le back !!!");
     const animalId = req.params.id || req.params.animalId;
 
     if (req.user) {
@@ -114,26 +119,53 @@ export const animalController = {
 
   //! Ajouter un animal
   createAnimal: async (req, res) => {
+    console.log(req.user);
+    console.log(req.body);
+    console.log(req.files);
     const association = await Association.findOne({
       where: { id_user: req.user.id },
     });
 
     const animalData = req.body;
 
-    // Gestion des photos si fournies
-    if (Array.isArray(animalData.images)) {
-      const uploads = animalData.images.map((image) =>
-        cloudinary.v2.uploader.upload(image)
-      );
-
-      const urls = await Promise.all(uploads);
-
-      for (let i = 0; i < urls.length; i++) {
-        const url = urls[i].secure_url;
-        if (i === 0) {
-          animalData.profile_photo = url;
-        } else {
-          animalData[`photo${i}`] = url;
+    if (req.files) {
+      const photoFields = ["profile_photo", "photo1", "photo2", "photo3"];
+      for (const field of photoFields) {
+        if (req.files[field]|| req.body[field] === "delete") {
+          if (selectedAnimal[field]) {
+            if (selectedAnimal[field].includes("images/")) {
+              const localFilePath = path.join(
+                process.cwd(),
+                "public",
+                selectedAnimal[field]
+              );
+              try {
+                await fs.unlink(localFilePath);
+                console.log("fichier local supprimé", localFilePath);
+              } catch (error) {
+                console.warn(`Erreur lors de la suppression du fichier local : ${err.message}`);
+              }
+            } else {
+              const publicId = selectedAnimal[field]
+              .split("/")
+              .pop()
+              .split(".")[0]
+              console.log(publicId)
+              try {
+                const response = await cloudinary.v2.uploader.destroy(publicId);
+                console.log("Image Cloudinary supprimé", publicId);
+              } catch (error) {
+                console.warn(`Erreur lors de la suppression sur Cloudinary : ${err.message}`);
+              }
+            }
+          }
+          
+          if (req.files[field]) {
+            const uploadResult = await uploadToCloudinary(req.files[field][0], `animal${selectedAnimal.id}_${field}` ,selectedAnimal.id);
+            animalData[field] = uploadResult;
+          } else {
+            animalData[field] = null;
+          }
         }
       }
     }
@@ -154,6 +186,7 @@ export const animalController = {
     });
     const animalId = req.params.id;
     const selectedAnimal = await Animal.findByPk(animalId);
+    const updateAnimal = req.body;
 
     if (!selectedAnimal) {
       throw new HttpError(
@@ -165,38 +198,49 @@ export const animalController = {
     if (association.id !== selectedAnimal.id_association) {
       throw new HttpError(403, "Accès interdit: Vous n'etes pas habilité");
     }
-
-    //! Gestion des images pour mise à jour
-    const imageUrls = {};
-
-    //* Upload de la photo de profil si fournie
-    if (req.body.profile_photo && isURL(req.body.profile_photo)) {
-      const uploadResultProfilePhoto = await cloudinary.v2.uploader.upload(
-        req.body.profile_photo,
-        {
-          resource_type: "image",
-        }
-      );
-      imageUrls.profile_photo = uploadResultProfilePhoto.secure_url;
-    }
-
-    //* Upload des autres photos si fournies
-    for (let i = 1; i <= 3; i++) {
-      const photoKey = `photo${i}`;
-      if (req.body[photoKey] && isURL(req.body[photoKey])) {
-        const uploadResultPhoto = await cloudinary.v2.uploader.upload(
-          req.body[photoKey],
-          {
-            resource_type: "image",
+    if (req.files) {
+      const photoFields = ["profile_photo", "photo1", "photo2", "photo3"];
+      for (const field of photoFields) {
+        if (req.files[field]|| req.body[field] === "delete") {
+          if (selectedAnimal[field]) {
+            if (selectedAnimal[field].includes("images/")) {
+              const localFilePath = path.join(
+                process.cwd(),
+                "public",
+                selectedAnimal[field]
+              );
+              try {
+                await fs.unlink(localFilePath);
+                console.log("fichier local supprimé", localFilePath);
+              } catch (error) {
+                console.warn(`Erreur lors de la suppression du fichier local : ${err.message}`);
+              }
+            } else {
+              const publicId = selectedAnimal[field]
+              .split("/")
+              .pop()
+              .split(".")[0]
+              console.log(publicId)
+              try {
+                const response = await cloudinary.v2.uploader.destroy(publicId);
+                console.log("Image Cloudinary supprimé", publicId);
+              } catch (error) {
+                console.warn(`Erreur lors de la suppression sur Cloudinary : ${err.message}`);
+              }
+            }
           }
-        );
-        imageUrls[photoKey] = uploadResultPhoto.secure_url;
+          
+          if (req.files[field]) {
+            const uploadResult = await uploadToCloudinary(req.files[field][0], `animal${selectedAnimal.id}_${field}` ,selectedAnimal.id);
+            updateAnimal[field] = uploadResult;
+          } else {
+            updateAnimal[field] = null;
+          }
+        }
       }
     }
-
     //* Met à jour les propriétés de l'animal avec les nouvelles URLs d'images
-    Object.assign(selectedAnimal, req.body, imageUrls);
-
+    Object.assign(selectedAnimal, updateAnimal);
     await selectedAnimal.save(); // Sauvegarde l'animal mis à jour
 
     res.status(200).json(selectedAnimal);
@@ -208,10 +252,7 @@ export const animalController = {
       where: { id_user: req.user.id },
     });
 
-console.log(association);
-
     const animalId = req.params.id;
-console.log(animalId);
     const selectedAnimal = await Animal.findByPk(animalId);
 
     if (!selectedAnimal) {
@@ -225,33 +266,39 @@ console.log(animalId);
       throw new HttpError(403, "Accès interdit : Vous n'êtes pas habilité");
     }
 
-    if (selectedAnimal.profile_photo) {
-      if (selectedAnimal.profile_photo.startsWith("images/")) {
-        const localFilePath = path.join(
-          process.cwd(),
-          "public",
-          selectedAnimal.profile_photo
-        );
-        try {
-          await fs.unlink(localFilePath);
-          console.log(`Fichier local supprimé : ${localFilePath}`);
-        } catch (err) {
-          console.warn(
-            `Erreur lors de la suppression du fichier local : ${err.message}`
+
+    const photoFields = ["profile_photo", "photo1", "photo2", "photo3"];
+
+    for (const photo of photoFields) {
+      console.log(selectedAnimal[photo]);
+      if (selectedAnimal[photo]) {
+        if (selectedAnimal[photo].startsWith("images/")) {
+          const localFilePath = path.join(
+            process.cwd(),
+            "public",
+            selectedAnimal[photo]
           );
-        }
-      } else {
-        const publicId = selectedAnimal.profile_photo
-          .split("/")
-          .pop()
-          .split(".")[0];
-        try {
-          await cloudinary.v2.uploader.destroy(publicId);
-          console.log(`Image Cloudinary supprimée : ${publicId}`);
-        } catch (err) {
-          console.warn(
-            `Erreur lors de la suppression sur Cloudinary : ${err.message}`
-          );
+          try {
+            await fs.unlink(localFilePath);
+            console.log(`Fichier local supprimé : ${localFilePath}`);
+          } catch (err) {
+            console.warn(
+              `Erreur lors de la suppression du fichier local : ${err.message}`
+            );
+          }
+        } else {
+          const publicId = selectedAnimal[photo]
+            .split("/")
+            .pop()
+            .split(".")[0];
+          try {
+            await cloudinary.v2.uploader.destroy(publicId);
+            console.log(`Image Cloudinary supprimée : ${publicId}`);
+          } catch (err) {
+            console.warn(
+              `Erreur lors de la suppression sur Cloudinary : ${err.message}`
+            );
+          }
         }
       }
     }

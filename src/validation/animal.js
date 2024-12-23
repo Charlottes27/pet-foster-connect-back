@@ -7,8 +7,11 @@ export const createSchema = Joi.object({
   gender: Joi.string().valid("M", "F").required(),
   age: Joi.number().integer().required(),
   size: Joi.string().required(),
-  description: Joi.string(),
-  images: Joi.array().items(Joi.string().dataUri()).min(1).max(4).optional(),
+  description: Joi.string().allow(""),
+  profile_photo: Joi.string(),
+  photo1: Joi.string(),
+  photo2: Joi.string(),
+  photo3: Joi.string(),
   id_family: Joi.number().integer(),
   id_association: Joi.number().integer(),
 });
@@ -20,8 +23,11 @@ export const patchSchema = Joi.object({
   gender: Joi.string().valid("M", "F"),
   age: Joi.number().integer(),
   size: Joi.string(),
-  description: Joi.string(),
-  images: Joi.array().items(Joi.string().dataUri()).min(1).max(4).optional(),
+  description: Joi.string().allow(""),
+  profile_photo: Joi.string(),
+  photo1: Joi.string(),
+  photo2: Joi.string(),
+  photo3: Joi.string(),
   id_family: Joi.number().integer(),
   id_association: Joi.number().integer(),
-}).min(1);
+});
