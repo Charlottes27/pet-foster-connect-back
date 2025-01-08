@@ -6,16 +6,6 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.js"
-    }
-  ],
   "public": true,
   "outputDirectory": "public",
   "headers": [
